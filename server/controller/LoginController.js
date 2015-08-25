@@ -3,6 +3,11 @@ var express = require('express');
 var userDao = require('../dao/UserDao');
 var router = express.Router();
 
+router.get('/', function(req, res) {
+    console.log('1111')
+    res.render('index/login', { title: 'The index page!' })
+});
+
 router.post('/', function(req, res) {
     var params = req.body;
     var columns = {username:1, password:1};
