@@ -1,0 +1,103 @@
+<style rel="stylesheet">
+    .comment {
+        margin-bottom: 25px;
+        list-style: none;
+    }
+    .comment-main {
+        position: relative;
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+    }
+    .comment-children {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .comment-main .avatar {
+        position: relative;
+        float:left;
+    }
+    .avatar img {
+        width: 48px;
+        height: 48px;
+        margin-right:10px;
+    }
+    .comment-content {
+        float:left;
+    }
+    .ta-editor {
+        height: 100px;
+        overflow: auto;
+        font-family: inherit;
+        font-size: 100%;
+    }
+    .ta-toolbar {
+        background-color: #F0F0F0;
+        padding: 10px 10px 5px;
+        margin-left: 0px; /* Override bootstrap */
+        border: 1px solid #EEE;
+    }
+
+    .ta-toolbar .btn-group {
+        margin-bottom: 5px;
+    }
+
+    .ta-editor, .white-box {
+        padding: 10px;
+        background-color: #FFF;
+        border: 1px solid #EEE;
+    }
+
+    textarea.ta-bind {
+        width: 100%;
+    }
+</style>
+<div class="container" style="margin-top:10px;margin-bottom: 50px;">
+    <div class="container-fluid" style="margin-top: 90px;">
+        <div class="row">
+            <div class="col-md-9">
+                <article>
+                    <h2><a href="#" style="color:black">{{article.title}}</a></h2>
+                    <p>{{article.create_time}}</p>
+                    <p><strong ng-repeat="label in article.labels">{{label}}&nbsp;&nbsp;&nbsp;</strong></p>
+                    <hr/>
+                    <i style="text-indent: 2em">{{article.introduction}}</i>
+                    <hr/>
+                    <div ng-bind-html="article.content | sanitize"></div>
+                </article>
+
+                <article style="margin-top: 80px;">
+                    <p><strong>评论</strong></p>
+                    <hr style="height:2px;background-color: #9d9d9d"/>
+                    <ul style="padding-left: 0px;">
+                        <li class="comment" ng-repeat="comment in comments">
+                            <article class="comment-main">
+                                <div class="avatar">
+                                    <a href="#">
+                                        <img class="img-rounded" ng-src="{{defaultImg}}" alt="头像">
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="#"><strong>user1</strong></a>
+                                    <div ng-bind-html="comment.content | sanitize"></div>
+                                </div>
+                                <div style="position: absolute;bottom: 1px;right:0px;">
+                                    <a href="#" title="赞" style="color:black"><i class="fa fa-thumbs-up"></i>(0)</a>
+                                    <a href="#" title="踩" style="color:black"><i class="fa fa-thumbs-down"></i>(0)</a>
+                                </div>
+                                <div style="clear:both"></div>
+                            </article>
+                        </li>
+                    </ul>
+                </article>
+
+                <article>
+                    <hr/>
+                    <p><strong>你的答案:</strong></p>
+                    <div text-angular ng-model="comment.content" name="demo-editor" ta-text-editor-class="border-around" ta-html-editor-class="border-around"></div>
+                    <p><button class="btn btn-default" ng-click="saveComment()">回复</button></p>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
