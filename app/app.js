@@ -17,7 +17,9 @@ define([], function() {
                 };
                 var route = routeResolverProvider.route;
 
-                $routeProvider.when('/user', route.resolve('userAddController','userAdd','user','vm', false))
+                $routeProvider
+                    .when('/user', route.resolve('userController','user','user','vm', false))
+                    .when('/user/add', route.resolve('userAddController','userAdd','user','vm', false))
                     .when('/article/add',route.resolve('articleAddController','add','article', 'vm', false))
                     .otherwise(route.resolve('articleAddController','add','article', 'vm', false));
             }]
