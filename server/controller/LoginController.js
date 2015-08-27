@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express');
 var userDao = require('../dao/UserDao');
+var appGlobal = require('../util/AppGlobal');
 var router = express.Router();
 
 router.get('/', function(req, res) {
@@ -11,11 +12,13 @@ router.post('/', function(req, res) {
     var params = req.body;
     var columns = {username:1, password:1};
     var returnStr = '用户名或密码错误.';
-    console.log(params)
     userDao.query({username: params.username}, columns, function(data) {
         if(data.operate) {
             var userInfo = data.data;
             if(userInfo.length > 0 && userInfo[0].password === params.password) {
+                req.session.userInfo = params;
+                appGlobal.session_user_id = userInfo[0].username;
+                appGlobal.session_id = req.sessionID;
                 res.redirect('index')
             } else {
                 res.render('login', { msg: returnStr })
