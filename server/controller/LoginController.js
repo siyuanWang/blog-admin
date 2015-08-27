@@ -1,7 +1,6 @@
 'use strict';
 var express = require('express');
 var userDao = require('../dao/UserDao');
-var appGlobal = require('../util/AppGlobal');
 var router = express.Router();
 
 router.get('/', function(req, res) {

@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var loginController = require('./server/controller/LoginController');
-var appGlobal = require('./server/util/AppGlobal');
 
 var app = express();
 app.engine('.html', require('ejs').__express);
@@ -38,9 +37,14 @@ app.use(session({
 app.use("/login", loginController);
 
 //blog-admin index
-app.get('/index', function(req, res) {
-  console.log(appGlobal);
-  res.render('index');
+app.get('/index', function(req, res, next) {
+  console.log(req.sessionID);
+  console.log(req.session.userInfo);
+  if(!req.session.userInfo) {
+    res.redirect('/login');
+  } else {
+    res.render('index');
+  }
 });
 
 var server = app.listen(3000, function () {
