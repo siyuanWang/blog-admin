@@ -16,8 +16,6 @@ router.post('/', function(req, res) {
             var userInfo = data.data;
             if(userInfo.length > 0 && userInfo[0].password === params.password) {
                 req.session.userInfo = params;
-                appGlobal.session_user_id = userInfo[0].username;
-                appGlobal.session_id = req.sessionID;
                 res.redirect('index')
             } else {
                 res.render('login', { msg: returnStr })

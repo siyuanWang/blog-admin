@@ -18,10 +18,8 @@ define([], function() {
                 var route = routeResolverProvider.route;
 
                 $routeProvider.when('/user', route.resolve('userAddController','userAdd','user','vm', false))
-                    .when('/index',route.resolve('indexController','index','index', 'vm', false))
-                    .when('/article/query/:id',route.resolve('articleShowController', 'show', 'article', 'vm', false))
                     .when('/article/add',route.resolve('articleAddController','add','article', 'vm', false))
-                    .otherwise(route.resolve('indexController','index','index', 'vm', false));
+                    .otherwise(route.resolve('articleAddController','add','article', 'vm', false));
             }]
     );
     app.filter('sanitize',['$sce', function($sce) {
