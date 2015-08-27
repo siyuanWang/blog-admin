@@ -4,25 +4,24 @@ var userDao = require('../dao/UserDao');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    console.log('1111')
-    res.render('index/login', { title: 'The index page!' })
+    res.render('login', { msg: 'The index page!' })
 });
 
 router.post('/', function(req, res) {
     var params = req.body;
     var columns = {username:1, password:1};
+    var returnStr = '用户名或密码错误.';
+    console.log(params)
     userDao.query({username: params.username}, columns, function(data) {
         if(data.operate) {
             var userInfo = data.data;
-            console.log(req.session)
             if(userInfo.length > 0 && userInfo[0].password === params.password) {
-                req.session.userInfo = userInfo;
-                res.send({check: true});
+                res.redirect('index')
             } else {
-                res.send({check: false, msg: "密码或用户名错误"});
+                res.render('login', { msg: returnStr })
             }
         } else {
-            console.log(data.msg);
+            res.render('index/login', { msg: '后台程序错误' })
         }
     });
 });
