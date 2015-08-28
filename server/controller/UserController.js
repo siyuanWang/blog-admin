@@ -28,7 +28,9 @@ router.post('/', function(req, res) {
     res.send(data.msg);
   });
 });
-
+/**
+ * 查询用户
+ */
 router.get('/', function(req, res) {
   var conditions = req.params;
   console.log('query user conditions:'+JSON.stringify(conditions));
@@ -36,6 +38,25 @@ router.get('/', function(req, res) {
   userDao.query({}, fields, function(data) {
     res.send(data.data);
   })
+});
+/**
+ * 按用户ID查询用户
+ */
+router.get('/:userId', function(req, res) {
+  var userId = req.params.userId;
+  userDao.queryById(userId, function(data) {
+    res.send(data);
+  });
+});
+/**
+ * 修改用户
+ */
+router.put('/', function(req, res) {
+  var data = req.body;
+  delete data.confirmPassword;
+  userDao.update(data, function(data) {
+    res.send(data.msg);
+  });
 });
 
 module.exports = router;

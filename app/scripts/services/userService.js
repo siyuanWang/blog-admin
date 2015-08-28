@@ -36,10 +36,42 @@ define(['app'], function(app) {
 
             return defer.promise;
         };
+        /**
+         * 按ID查询用户
+         * @param userId
+         * @returns {*}
+         */
+        var queryById = function(userId) {
+            var defer = $q.defer();
+            $http.get('/user/'+userId)
+                .success(function(data, status, headers, config) {
+                    defer.resolve(data);
+                })
+                .error(function(response, status, headers, config) {
+                    defer.reject(response);
+                });
+
+            return defer.promise;
+        };
+
+        var update = function(user) {
+            var defer = $q.defer();
+            $http.put('/user', user)
+                .success(function(data, status, headers, config) {
+                    defer.resolve(data);
+                })
+                .error(function(response, status, headers, config) {
+                    defer.reject(response);
+                });
+
+            return defer.promise;
+        };
 
         return {
             save: save,
-            query: query
+            query: query,
+            queryById: queryById,
+            update: update
         }
     }]);
 });

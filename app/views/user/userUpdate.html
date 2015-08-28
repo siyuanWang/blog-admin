@@ -1,0 +1,106 @@
+<style>
+    .errorInfo {
+        white-space:nowrap;
+    }
+</style>
+<form name="userForm" novalidate ng-submit="submit()" class="form-horizontal">
+    <!-- 用户名 -->
+    <div class="form-group">
+        <label for="username" class="col-md-2 control-label">用户名</label>
+        <div class="col-md-9"
+             ng-class="{
+    'has-error': userForm.username.$invalid && (userForm.username.$dirty || userForm.$submitted),
+    'has-success': userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)}">
+            <div class="input-group">
+                <input type="text" class="form-control" id="username" name="username" ng-model="fields.username" placeholder="必填" required check-user-name ng-model-options="{debounce: 500}"/>
+                <span class="input-group-addon">
+                    <span ng-show="userForm.username.$pristine" class="glyphicon glyphicon-user"></span>
+                    <span ng-show="userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
+                    <span ng-show="userForm.username.$invalid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('username')"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-1 errorInfo">
+            <span ng-show="userForm.username.$error.required && (userForm.username.$dirty || userForm.$submitted)" class="help-block">用户名必填.</span>
+            <span ng-show="userForm.username.$error.checkUserName && (userForm.username.$dirty || userForm.$submitted)" class="help-block">{{userForm.username.$viewValue}}已存在</span>
+        </div>
+    </div>
+    <!-- 电子邮件 -->
+    <div class="form-group">
+        <label for="email" class="col-md-2 control-label">Email</label>
+        <div class="col-md-9"
+             ng-class="{
+    'has-error': userForm.email.$invalid && (userForm.email.$dirty || userForm.$submitted),
+    'has-success': userForm.email.$valid && (userForm.email.$dirty || userForm.$submitted)}">
+            <div class="input-group">
+                <input type="email" class="form-control" id="email" name="email" ng-model="fields.email" required placeholder="必填">
+                <span class="input-group-addon">
+                    <span ng-show="userForm.email.$pristine" class="glyphicon glyphicon-envelope"></span>
+                    <span ng-show="userForm.email.$valid && (userForm.email.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
+                    <span ng-show="userForm.email.$invalid && (userForm.email.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('email')"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-1 errorInfo">
+            <span ng-show="userForm.email.$error.required && (userForm.email.$dirty || userForm.$submitted)" class="help-block">必填项</span>
+            <span ng-show="userForm.email.$error.email && (userForm.email.$dirty || userForm.$submitted)" class="help-block">不是正确的email格式</span>
+        </div>
+    </div>
+    <!-- 电话号码 -->
+    <div class="form-group">
+        <label for="email" class="col-md-2 control-label">电话号码</label>
+        <div class="col-md-9" ng-class="{
+    'has-error': userForm.phone.$invalid && (userForm.phone.$dirty || userForm.$submitted),
+    'has-success': userForm.phone.$valid && (userForm.phone.$dirty || userForm.$submitted)}">
+            <div class="input-group">
+                <input type="text" class="form-control" name='phone' id="phone" ng-model="fields.phone" check-phone-number/>
+                <span class="input-group-addon">
+                    <span ng-show="userForm.phone.$pristine" class="glyphicon glyphicon-phone"></span>
+                    <span ng-show="userForm.phone.$valid && (userForm.phone.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
+                    <span ng-show="userForm.phone.$invalid && (userForm.phone.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('phone')"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-1 errorInfo">
+            <span ng-show="userForm.phone.$error.checkPhoneNumber && (userForm.phone.$dirty || userForm.$submitted)" class="help-block">请填写11位，或者带有86的13位手机号码</span>
+        </div>
+    </div>
+    <!-- 性别 -->
+    <div class="form-group">
+        <label for="age" class="col-md-2 control-label">性别</label>
+        <div class="col-md-9">
+            <div class="input-group">
+                <select name="sex" id="sex" ng-init="fields.sex = sexItems[0]" ng-model="fields.sex" class="form-control" ng-options="sexItem.name for sexItem in sexItems"></select>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-heart"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- 年龄 -->
+    <div class="form-group">
+        <label for="age" class="col-md-2 control-label">年龄</label>
+        <div class="col-md-9" ng-class="{
+    'has-error': userForm.age.$invalid && (userForm.age.$dirty || userForm.$submitted),
+    'has-success': userForm.age.$valid && (userForm.age.$dirty || userForm.$submitted)}">
+            <div class="input-group">
+                <input type="number" class="form-control" name="age" id="age" min="1" max="200" ng-model="fields.age"/>
+                <span class="input-group-addon">
+                    <span ng-show="userForm.age.$pristine" class="glyphicon glyphicon-time"></span>
+                    <span ng-show="userForm.age.$valid && (userForm.age.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
+                    <span ng-show="userForm.age.$invalid && (userForm.age.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('age')"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-5">
+            <div class="pull-right">
+                <input type="submit" class="btn btn-success" value="Submit" ng-click="validateBeforSubmit(fields)"/>
+                <button class="btn btn-default" ng-click="reset(form)">Reset</button>
+            </div>
+        </div>
+    </div>
+</form>
+

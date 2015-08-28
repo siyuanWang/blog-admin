@@ -49,5 +49,44 @@ var query = function(conditions, fields, callback) {
     });
 };
 
+var queryById = function(id, callback) {
+    var userModel = db.model('blog_user', userSchema);
+    if(id) {
+        userModel.findById(id, function(error, result) {
+            if(error) {
+                callback({
+                    operate: false,
+                    msg: error
+                })
+            } else {
+                callback({
+                    operate: true,
+                    data: result
+                });
+            }
+        })
+    }
+};
+
+var update = function(document, callback) {
+    var userModel = db.model('blog_user', userSchema);
+    var userEntity = new userModel(document);
+    userEntity.update(function(error) {
+        if(error) {
+            callback({
+                operate: false,
+                msg: error
+            })
+        } else {
+            callback({
+                operate: true,
+                msg: "操作成功"
+            })
+        }
+    });
+};
+
 module.exports.saveUser = saveUser;
 module.exports.query = query;
+module.exports.update = update;
+module.exports.queryById = queryById;
