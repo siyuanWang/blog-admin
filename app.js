@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var loginController = require('./server/controller/LoginController');
+var userController = require('./server/controller/UserController');
 
 var app = express();
 app.engine('.html', require('ejs').__express);
@@ -34,7 +35,8 @@ app.use(session({
   })
 }));
 
-app.use("/login", loginController);
+app.use('/login', loginController);
+app.use('/user', userController);
 
 //blog-admin index
 app.get('/index', function(req, res, next) {

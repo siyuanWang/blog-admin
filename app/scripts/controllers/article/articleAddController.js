@@ -16,7 +16,7 @@ define(['app'], function(app) {
                 name: "软件工程",
                 id: '2'
             }]
-        }
+        };
 
         function show() {
             articleService.setArticle($scope.article);

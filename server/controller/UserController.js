@@ -3,14 +3,9 @@ var express = require('express');
 var userDao = require('../dao/UserDao');
 var router = express.Router();
 
-router.get('/page/add', function(req, res) {
-  res.render('views/user/add');
-});
-
-router.get('/page/list', function(req, res) {
-  res.render('views/user/list');
-});
-
+/**
+ * 校验用户名重复
+ */
 router.get('/checkusername', function(req, res) {
   var params = req.query;
   var columns = {username:1, create_time:1};
@@ -23,13 +18,24 @@ router.get('/checkusername', function(req, res) {
     }
   });
 });
-
+/**
+ * 新增用户
+ */
 router.post('/', function(req, res) {
   var data = req.body;
   delete data.confirmPassword;
   userDao.saveUser(data, function(data) {
     res.send(data.msg);
   });
+});
+
+router.get('/', function(req, res) {
+  var conditions = req.params;
+  console.log('query user conditions:'+JSON.stringify(conditions));
+  var fields = {username: 1, email: 1, sex: 1, phone: 1, age: 1, create_time: 1};
+  userDao.query({}, fields, function(data) {
+    res.send(data.data);
+  })
 });
 
 module.exports = router;

@@ -31,9 +31,9 @@ var saveUser = function(document, callback) {
     });
 };
 
-var query = function(params, columns, callback) {
+var query = function(conditions, fields, callback) {
     var userModel = db.model('blog_user', userSchema);
-    var query = userModel.find(params).select(columns);
+    var query = userModel.find(conditions).select(fields);
     query.exec(function(error, result) {
         if(error) {
             callback({

@@ -31,10 +31,7 @@ define(['app'], function(app) {
             }
             $scope.fields = angular.copy($scope.master);
         };
-        //$scope.clearInput = function(name) {
-        //    $element[0].querySelector('#'+name).focus();
-        //    $scope.fields[name] = '';
-        //}
+
         $scope.reset();
     };
     addUserController.$inject = injectParams;
