@@ -1,6 +1,6 @@
 define(['app'], function(app) {
-    var injectParams = ['$scope', '$http', 'userService'];
-    var userController = function($scope, $http, userService) {
+    var injectParams = ['$scope', '$http', '$location', 'userService'];
+    var userController = function($scope, $http, $location, userService) {
         $scope.users = [];
 
         var promise = userService.query({});
@@ -11,6 +11,14 @@ define(['app'], function(app) {
         }, function(msg) {
             console.log('process:'+msg)
         });
+
+        $scope.del = function(userId) {
+            var promise = userService.del(userId);
+            promise.then(function(data) {
+                alert(data);
+                $location.path('/user');
+            })
+        }
     };
     userController.$inject = injectParams;
     app.register.controller('userController', userController);

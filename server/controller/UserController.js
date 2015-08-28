@@ -59,5 +59,14 @@ router.put('/', function(req, res) {
     res.send(data.msg);
   });
 });
+/**
+ * 删除用户
+ */
+router.delete('/:userId', function(req, res) {
+  var userId = req.params.userId;
+  userDao.del(userId, function(data) {
+    res.send(data.msg);
+  })
+});
 
 module.exports = router;

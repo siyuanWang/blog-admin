@@ -53,7 +53,11 @@ define(['app'], function(app) {
 
             return defer.promise;
         };
-
+        /**
+         * 修改用户
+         * @param user
+         * @returns {*}
+         */
         var update = function(user) {
             var defer = $q.defer();
             console.log(user)
@@ -68,11 +72,25 @@ define(['app'], function(app) {
             return defer.promise;
         };
 
+        var del = function(userId) {
+            var defer = $q.defer();
+            $http.delete('/user/'+userId)
+                .success(function(data, status, headers, config) {
+                    defer.resolve(data);
+                })
+                .error(function(response, status, headers, config) {
+                    defer.reject(response);
+                });
+
+            return defer.promise;
+        };
+
         return {
             save: save,
             query: query,
             queryById: queryById,
-            update: update
+            update: update,
+            del: del
         }
     }]);
 });

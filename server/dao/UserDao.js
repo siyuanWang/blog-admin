@@ -89,7 +89,26 @@ var update = function(document, callback) {
     });
 };
 
+var del = function(userId, callback) {
+    var userModel = db.model('blog_user', userSchema);
+    var query = userModel.findById(userId);
+    query.remove(function(error, data) {
+        if(error) {
+            callback({
+                operate: false,
+                msg: error
+            })
+        } else {
+            callback({
+                operate: true,
+                msg: "操作成功"
+            })
+        }
+    })
+};
+
 module.exports.saveUser = saveUser;
 module.exports.query = query;
 module.exports.update = update;
 module.exports.queryById = queryById;
+module.exports.del = del;
