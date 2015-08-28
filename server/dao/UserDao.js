@@ -49,10 +49,12 @@ var query = function(conditions, fields, callback) {
     });
 };
 
-var queryById = function(id, callback) {
+var queryById = function(id, fields, callback) {
     var userModel = db.model('blog_user', userSchema);
     if(id) {
-        userModel.findById(id, function(error, result) {
+        var query = userModel.findById(id);
+        query.select(fields);
+        query.exec(function(error, result) {
             if(error) {
                 callback({
                     operate: false,
@@ -70,8 +72,9 @@ var queryById = function(id, callback) {
 
 var update = function(document, callback) {
     var userModel = db.model('blog_user', userSchema);
-    var userEntity = new userModel(document);
-    userEntity.update(function(error) {
+    var query = {_id: document._id};
+    document['update_time'] = Date.now();
+    userModel.update(query, document, {}, function(error) {
         if(error) {
             callback({
                 operate: false,

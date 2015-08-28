@@ -44,7 +44,7 @@ router.get('/', function(req, res) {
  */
 router.get('/:userId', function(req, res) {
   var userId = req.params.userId;
-  userDao.queryById(userId, function(data) {
+  userDao.queryById(userId, {username:1,email:1,phone:1,sex:1,age:1},function(data) {
     res.send(data);
   });
 });
@@ -54,6 +54,7 @@ router.get('/:userId', function(req, res) {
 router.put('/', function(req, res) {
   var data = req.body;
   delete data.confirmPassword;
+  console.log(data)
   userDao.update(data, function(data) {
     res.send(data.msg);
   });

@@ -56,6 +56,7 @@ define(['app'], function(app) {
 
         var update = function(user) {
             var defer = $q.defer();
+            console.log(user)
             $http.put('/user', user)
                 .success(function(data, status, headers, config) {
                     defer.resolve(data);

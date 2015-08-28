@@ -3,26 +3,12 @@
         white-space:nowrap;
     }
 </style>
+<h4 style="text-align: center">用户修改</h4>
 <form name="userForm" novalidate ng-submit="submit()" class="form-horizontal">
-    <!-- 用户名 -->
     <div class="form-group">
-        <label for="username" class="col-md-2 control-label">用户名</label>
-        <div class="col-md-9"
-             ng-class="{
-    'has-error': userForm.username.$invalid && (userForm.username.$dirty || userForm.$submitted),
-    'has-success': userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)}">
-            <div class="input-group">
-                <input type="text" class="form-control" id="username" name="username" ng-model="fields.username" placeholder="必填" required check-user-name ng-model-options="{debounce: 500}"/>
-                <span class="input-group-addon">
-                    <span ng-show="userForm.username.$pristine" class="glyphicon glyphicon-user"></span>
-                    <span ng-show="userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
-                    <span ng-show="userForm.username.$invalid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('username')"></span>
-                </span>
-            </div>
-        </div>
-        <div class="col-md-1 errorInfo">
-            <span ng-show="userForm.username.$error.required && (userForm.username.$dirty || userForm.$submitted)" class="help-block">用户名必填.</span>
-            <span ng-show="userForm.username.$error.checkUserName && (userForm.username.$dirty || userForm.$submitted)" class="help-block">{{userForm.username.$viewValue}}已存在</span>
+        <label for="email" class="col-md-2 control-label">用户名</label>
+        <div class="col-md-9">
+            <input class="form-control" type="text" value="{{fields.username}}" readonly/>
         </div>
     </div>
     <!-- 电子邮件 -->
@@ -70,7 +56,7 @@
         <label for="age" class="col-md-2 control-label">性别</label>
         <div class="col-md-9">
             <div class="input-group">
-                <select name="sex" id="sex" ng-init="fields.sex = sexItems[0]" ng-model="fields.sex" class="form-control" ng-options="sexItem.name for sexItem in sexItems"></select>
+                <select name="sex" id="sex" ng-model="fields.sex" class="form-control" ng-options="sexItem.name for sexItem in sexItems"></select>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-heart"></span>
                 </span>
