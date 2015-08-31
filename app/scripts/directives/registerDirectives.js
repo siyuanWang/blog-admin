@@ -107,4 +107,22 @@ define(['app'], function(app) {
             }
         }
     });
+
+    app.directive('menuControl', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs) {
+                var $elem = angular.element(elem);
+                $elem.on('click', function(e) {
+                    angular.forEach($elem.children(), function($e) {
+                        $e = angular.element($e);
+                        $e.removeClass('active');
+                    });
+                    var $target = angular.element(e.target);
+                    $target.addClass('active');
+                })
+
+            }
+        }
+    });
 });

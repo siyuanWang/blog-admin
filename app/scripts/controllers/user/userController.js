@@ -1,6 +1,6 @@
 define(['app'], function(app) {
-    var injectParams = ['$scope', '$http', '$location', 'userService'];
-    var userController = function($scope, $http, $location, userService) {
+    var injectParams = ['$scope', '$http', '$location', '$window','userService'];
+    var userController = function($scope, $http, $location, $window, userService) {
         $scope.users = [];
 
         var promise = userService.query({});
@@ -13,17 +13,20 @@ define(['app'], function(app) {
         });
 
         $scope.del = function(userId) {
-            var promise = userService.del(userId);
-            promise.then(function(data) {
-                alert(data);
-                var users = [];
-                angular.forEach($scope.users, function(user, index) {
-                    if(userId != user._id) {
-                        users.push(user);
-                    }
-                });
-                $scope.users = users;
-            })
+            if($window.confirm('是否删除该用户？')) {
+                var promise = userService.del(userId);
+                promise.then(function(data) {
+                    alert(data);
+                    var users = [];
+                    angular.forEach($scope.users, function(user, index) {
+                        if(userId != user._id) {
+                            users.push(user);
+                        }
+                    });
+                    $scope.users = users;
+                })
+            }
+
         }
     };
     userController.$inject = injectParams;
