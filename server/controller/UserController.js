@@ -23,6 +23,7 @@ router.get('/checkusername', function(req, res) {
  */
 router.post('/', function(req, res) {
   var data = req.body;
+  console.log(JSON.stringify(data));
   delete data.confirmPassword;
   userDao.saveUser(data, function(data) {
     res.send(data.msg);

@@ -1,6 +1,6 @@
 define(['app'], function(app) {
-    var injectParams = ['$scope', '$http'];
-    var addUserController = function($scope, $http) {
+    var injectParams = ['$scope', '$http','$location'];
+    var addUserController = function($scope, $http, $location) {
         $scope.sexItems = [
             {name: '男', value: '0'},
             {name: '女', value: '1'}
@@ -11,6 +11,7 @@ define(['app'], function(app) {
                 $http.post('/user', $scope.fields)
                     .success(function(data, status, headers, config) {
                         alert(data);
+                        $location.path('/user');
                     })
                     .error(function(data, status, headers, config) {
                         alert(data);

@@ -1,6 +1,6 @@
 'use strict';
 define([], function() {
-    var app = angular.module('myApp',['ngRoute', 'routeResolverServices','ngAnimate','ui.router','ui.bootstrap','textAngular']);
+    var app = angular.module('myApp',['ngRoute', 'routeResolverServices','ngAnimate','ui.router','ui.bootstrap','textAngular','datatables']);
     app.config(['$routeProvider', 'routeResolverProvider','$controllerProvider','$compileProvider',
             '$provide','$filterProvider',
 

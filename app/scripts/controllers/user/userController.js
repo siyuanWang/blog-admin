@@ -16,7 +16,13 @@ define(['app'], function(app) {
             var promise = userService.del(userId);
             promise.then(function(data) {
                 alert(data);
-                $location.path('/user');
+                var users = [];
+                angular.forEach($scope.users, function(user, index) {
+                    if(userId != user._id) {
+                        users.push(user);
+                    }
+                });
+                $scope.users = users;
             })
         }
     };

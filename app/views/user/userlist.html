@@ -1,9 +1,11 @@
 <div>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
+    <div>
+        <a href="#user/add" class="btn btn-success">新增</a>
+    </div>
+    <hr/>
+    <table datatable="ng"  class="table table-hover" cellspacing="0" width="100%">
+        <thead>
             <tr>
-                <th>_ID</th>
                 <th>用户名</th>
                 <th>email</th>
                 <th>年龄</th>
@@ -11,20 +13,28 @@
                 <th>电话</th>
                 <th>操作</th>
             </tr>
-            </thead>
-            <tr ng-repeat="user in users | userFilter">
-                <td>{{user._id}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.age}}</td>
-                <td>{{user.sex}}</td>
-                <td>{{user.phone}}</td>
-                <td>
-                    <a href="#user/update/{{user._id}}" class="btn btn-default">修改</a>
-                    <button class="btn btn-danger" ng-click="del(user._id)">删除</button>
-                </td>
-            </tr>
-        </table>
-    </div>
+        </thead>
+        <tr ng-repeat="user in users | userFilter">
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.age}}</td>
+            <td>{{user.sex}}</td>
+            <td>{{user.phone}}</td>
+            <td>
+                <a href="#user/update/{{user._id}}"
+                   tooltip="修改"
+                   tooltip-placement="top"
+                   tooltip-trigger="mouseenter">
+                    <i class="fa fa-pencil"></i>
+                </a>&nbsp;
+                <a href="javascript:void(0)" ng-click="del(user._id)"
+                   tooltip="删除"
+                   tooltip-placement="top"
+                   tooltip-trigger="mouseenter">
+                    <i class="fa fa-trash" title="删除"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
 
 </div>
