@@ -21,6 +21,7 @@ define([], function() {
                     .when('/user', route.resolve('userController','userlist','user','vm', false))
                     .when('/user/add', route.resolve('userAddController','userAdd','user','vm', false))
                     .when('/user/update/:userId', route.resolve('userUpdateController','userUpdate','user','vm', false))
+                    .when('/article',route.resolve('articleController','articlelist','article', 'vm', false))
                     .when('/article/add',route.resolve('articleAddController','add','article', 'vm', false))
                     .otherwise(route.resolve('articleAddController','add','article', 'vm', false));
             }]

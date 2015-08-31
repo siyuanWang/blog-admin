@@ -5,17 +5,18 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var loginController = require('./server/controller/LoginController');
 var userController = require('./server/controller/UserController');
+var articleController = require('./server/controller/ArticleController');
 
 var app = express();
 app.engine('.html', require('ejs').__express);
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'html');
 app.use("/",express.static(path.join(__dirname, 'app')));
-//ÖÐ¼ä¼þ£¬https://github.com/expressjs/body-parser
+//ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½https://github.com/expressjs/body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//°ÑhttpSession ·ÅÈë mongodb
+//ï¿½ï¿½httpSession ï¿½ï¿½ï¿½ï¿½ mongodb
 app.use(session({
   secret: 'foo',
   store: new MongoStore({
@@ -37,6 +38,7 @@ app.use(session({
 
 app.use('/login', loginController);
 app.use('/user', userController);
+app.use('/article', articleController);
 
 //blog-admin index
 app.get('/index', function(req, res, next) {
