@@ -23,7 +23,7 @@ define([], function() {
                     .when('/user/update/:userId', route.resolve('userUpdateController','userUpdate','user','vm', false))
                     .when('/article',route.resolve('articleController','articlelist','article', 'vm', false))
                     .when('/article/add',route.resolve('articleAddController','add','article', 'vm', false))
-                    .otherwise(route.resolve('articleAddController','add','article', 'vm', false));
+                    .otherwise(route.resolve('articleController','articlelist','article', 'vm', false));
             }]
     );
     app.filter('sanitize',['$sce', function($sce) {

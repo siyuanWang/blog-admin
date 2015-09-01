@@ -1,6 +1,6 @@
 'use strict';
 define(['app'], function(app) {
-    var controller = function($scope, $http, articleService) {
+    var controller = function($scope, $http, $location, articleService) {
         $scope.article = {
             title: "",
             introduction: "",
@@ -27,6 +27,7 @@ define(['app'], function(app) {
             $http.post('/article', $scope.article)
                 .success(function(data, status, headers, config) {
                     alert(data);
+                    $location.path('/article');
                 })
                 .error(function(data, status, headers, config) {
                     alert(data);
@@ -34,6 +35,6 @@ define(['app'], function(app) {
         }
     };
 
-    controller.inject = ['$scope', '$http', 'articleService'];
+    controller.inject = ['$scope', '$http', '$location', 'articleService'];
     app.register.controller("articleAddController", controller);
 });
