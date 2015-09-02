@@ -14,10 +14,15 @@
         </thead>
         <tr ng-repeat="article in articles">
             <td>{{article.title}}</td>
-            <td>{{article.create_time}}</td>
+            <td>{{article.create_time | date: 'yyyy-MM-dd'}}</td>
             <td>否</td>
             <td>
-                <a href="#article/update/{{article._id}}"
+                <a href="#article/show/{{article._id}}"
+                   tooltip="查看"
+                   tooltip-placement="top"
+                   tooltip-trigger="mouseenter">
+                    <i class="fa fa-eye"></i>
+                </a>&nbsp;          <a href="#article/update/{{article._id}}"
                    tooltip="修改"
                    tooltip-placement="top"
                    tooltip-trigger="mouseenter">

@@ -1,7 +1,7 @@
 'use strict';
 define(['app'], function(app) {
-    var controller = function($scope, $http, $routeParams, articleService, commentService) {
-        var articleId = $routeParams.id;
+    var articleShowController = function($scope, $http, $routeParams, articleService, commentService) {
+        var articleId = $routeParams.articleId;
         $scope.defaultImg = '/images/icon.jpg';
         $scope.article = {};//文章对象
         $scope.comments = [];//评论集合
@@ -35,6 +35,6 @@ define(['app'], function(app) {
             });
         }
     };
-    controller.inject = ['$scope', '$http', '$routeParams', 'articleService', 'commentService'];
-    app.register.controller("articleShowController", controller);
+    articleShowController.inject = ['$scope', '$http', '$routeParams', 'articleService', 'commentService'];
+    app.register.controller("articleShowController", articleShowController);
 });

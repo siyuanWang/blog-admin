@@ -10,7 +10,8 @@ var articleSchema = new mongoose.Schema({
     type            : {type : Number, default: 1},
     share_num       : {type : Number, default: 0},
     create_time     : {type : Date, default: Date.now()},
-    update_time     : {type : Date, default: Date.now()}
+    update_time     : {type : Date, default: Date.now()},
+    draft           : {type : Number, default: 1}           //默认是草稿,发布是2
 });
 
 var save = function(document, callback) {

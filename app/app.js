@@ -24,6 +24,7 @@ define([], function() {
                     .when('/article',route.resolve('articleController','articlelist','article', 'vm', false))
                     .when('/article/add',route.resolve('articleAddController','add','article', 'vm', false))
                     .when('/article/update/:articleId',route.resolve('articleUpdateController','update','article', 'vm', false))
+                    .when('/article/show/:articleId',route.resolve('articleShowController','show','article', 'vm', false))
                     .otherwise(route.resolve('articleController','articlelist','article', 'vm', false));
             }]
     );
