@@ -1,7 +1,5 @@
 {
-  "dbname":"wsy",
+  "dbname":"blog",
   "port": "27017",
-  "host": "127.0.0.1",
-  "username": "wangsiyuan",
-  "password": "123456"
+  "host": "123.56.94.37"
 }
