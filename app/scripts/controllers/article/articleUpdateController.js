@@ -2,20 +2,22 @@
 define(['app'], function(app) {
     var articleUpdateController = function($scope, $http, $routeParams, $location, articleService) {
         var articleId = $routeParams.articleId;
-        $scope.init = {
-            types: [{
+        $scope.types = [
+            {
                 name: '前端',
                 id: '1'
             }, {
                 name: "软件工程",
                 id: '2'
-            }]
-        };
+            }
+        ];
 
-        var promise = articleService.getArticleById(articleId)
+        var promise = articleService.getArticleById(articleId);
         promise.then(function(data) {
-            console.log(data)
-            $scope.article = data.data;
+            var articleData = data.data;
+            console.log(articleData)
+            $scope.article = articleData;
+            setType(articleData.type)
         });
 
         $scope.update = function() {
@@ -24,6 +26,16 @@ define(['app'], function(app) {
                 alert(data);
                 $location.path('/article');
             })
+        };
+
+        function setType(type) {
+            angular.forEach($scope.types, function(item, index) {
+                if(item.id == type) {
+                    $scope.article.type = item;
+                    console.log(item)
+                    return false;
+                }
+            });
         }
     };
 
