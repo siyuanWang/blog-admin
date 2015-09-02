@@ -1,13 +1,7 @@
 'use strict';
 define(['app'], function(app) {
-    var articleUpdateController = function($scope, $http, articleService) {
-        $scope.article = {
-            title: "",
-            introduction: "",
-            labels: "",
-            content: ""
-        };
-
+    var articleUpdateController = function($scope, $http, $routeParams, $location, articleService) {
+        var articleId = $routeParams.articleId;
         $scope.init = {
             types: [{
                 name: '前端',
@@ -18,18 +12,21 @@ define(['app'], function(app) {
             }]
         };
 
-        $scope.submit = function() {
-            $scope.article.type = $scope.article.type.id;
-            $http.post('/article', $scope.article)
-                .success(function(data, status, headers, config) {
-                    alert(data);
-                })
-                .error(function(data, status, headers, config) {
-                    alert(data);
-                });
+        var promise = articleService.getArticleById(articleId)
+        promise.then(function(data) {
+            console.log(data)
+            $scope.article = data.data;
+        });
+
+        $scope.update = function() {
+            var updatePromise = articleService.updateArticle($scope.article);
+            updatePromise.then(function(data) {
+                alert(data);
+                $location.path('/article');
+            })
         }
     };
 
-    articleUpdateController.inject = ['$scope', '$http', 'articleService'];
+    articleUpdateController.inject = ['$scope', '$http', '$routeParams', '$location','articleService'];
     app.register.controller("articleUpdateController", articleUpdateController);
 });

@@ -2,21 +2,22 @@
 var db = require("./util/dbUtil");
 var mongoose = require('mongoose');
 
-var articleSchema = new mongoose.Schema({
-    content         : {type : String, default : '<div></div>'},
-    title           : {type : String, default: '未命名标题'},
-    labels          : {type : [String], default: []},
-    introduction       : {type :  String, default: '<div></div>'},
-    type            : {type : Number, default: 1},
-    share_num       : {type : Number, default: 0},
-    create_time     : {type : Date, default: Date.now()},
-    update_time     : {type : Date, default: Date.now()}
+var classifySchema = new mongoose.Schema({
+    name            : {type : String},                          //分类名称
+    code            : {type : String, default : '<div></div>'}, //分类code
+    parentId        : {type : String, default: ''},             //分类pid
+    order           : {type : Number, default: 1},              //分类排列顺序
+    create_time     : {type : Date, default: Date.now()}        //分类创建时间
 });
-
+/**
+ * 新增一个类型
+ * @param document
+ * @param callback
+ */
 var save = function(document, callback) {
-    var articleModel = db.model('blog_article', articleSchema);
-    var articleEntity = new articleModel(document);
-    articleEntity.save(function(error) {
+    var classifyModel = db.model('blog_classify', classifySchema);
+    var classifyEntity = new classifyModel(document);
+    classifyEntity.save(function(error) {
         if(error) {
             console.log(error);
             callback({
@@ -39,13 +40,13 @@ var save = function(document, callback) {
  * @param fields {查询字段} {String} example: 'UserName Email UserType' 要查询空格分隔的三个字段
  */
 var query = function(callback, conditions, fields) {
-    var articleModel = db.model('blog_article', articleSchema);
+    var classifyModel = db.model('blog_classify', classifySchema);
     var query;
     //如果有查询条件
     if(conditions) {
-        query = articleModel.find(conditions);
+        query = classifyModel.find(conditions);
     } else {
-        query = articleModel.find({});
+        query = classifyModel.find({});
     }
     //如果规定查询字段
     if(fields) {
@@ -67,16 +68,15 @@ var query = function(callback, conditions, fields) {
     })
 };
 /**
- * 根据articleId 查询
- * @param articleId
+ * 根据ID进行查询
+ * @param id
  * @param callback
  */
-var queryById = function(articleId, callback) {
-    var articleModel = db.model('blog_article', articleSchema);
-    if(articleId) {
-        articleModel.findById(articleId, function(error, result) {
+var queryById = function(id, callback) {
+    var classifyModel = db.model('blog_classify', classifySchema);
+    if(id) {
+        classifyModel.findById(id, function(error, result) {
             if(error) {
-                console.log(error);
                 callback({
                     operate: false,
                     msg: error
@@ -88,29 +88,32 @@ var queryById = function(articleId, callback) {
                 });
             }
         })
+    } else {
+        throw new Error('ID is undefined or null or ""');
     }
 };
+/**
+ * 查询pid下的所有类型
+ * @param pid 根据pid进行查询
+ * @param callback 回调函数
+ */
+var queryByParantId = function(pid, callback) {
+    var classifyModel = db.model('blog_classify', classifySchema);
+    if(pid) {
+        classifyModel.count({pid: pid}, function(error, count) {
+            if(error) {
+                throw new Error(error);
+            } else {
+                callback(0);
 
-var update = function(document, callback) {
-    var articleModel = db.model('blog_article', articleSchema);
-    var query = {_id: document._id};
-    document['update_time'] = Date.now();
-    articleModel.update(query, document, {}, function(error) {
-        if(error) {
-            callback({
-                operate: false,
-                msg: error
-            })
-        } else {
-            callback({
-                operate: true,
-                msg: "操作成功"
-            })
-        }
-    });
+            }
+        })
+    } else {
+        throw new Error('ID is undefined or null or ""');
+    }
 };
 
 module.exports.save = save;
 module.exports.query = query;
 module.exports.queryById = queryById;
-module.exports.update = update;
+module.exports.queryByParantId = queryByParantId;

@@ -36,10 +36,24 @@ define(['app'], function(app) {
             return defer.promise;
         };
 
+        var updateArticle = function(article) {
+            var defer = $q.defer();
+            $http.put('/article', article)
+                .success(function(data, status, headers, config) {
+                    defer.resolve(data);
+                })
+                .error(function(response, status, headers, config) {
+                    defer.reject(response);
+                });
+
+            return defer.promise;
+        };
+
         return {
             setArticle: setArticle,
             getArticles: getArticles,
-            getArticleById: getArticleById
+            getArticleById: getArticleById,
+            updateArticle: updateArticle
         }
     }]);
 });

@@ -28,5 +28,14 @@ router.post('/', function(req, res) {
     res.send(data.msg);
   })
 });
+/**
+ * 修改文章
+ */
+router.put('/', function(req, res) {
+  var data = req.body;
+  articleDao.update(data, function(data) {
+    res.send(data.msg);
+  });
+});
 
 module.exports = router;

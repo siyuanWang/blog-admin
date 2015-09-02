@@ -1,0 +1,66 @@
+<style rel="stylesheet">
+    .ta-editor {
+        height: 400px;
+        overflow: auto;
+        font-family: inherit;
+        font-size: 100%;
+    }
+    .ta-toolbar {
+        background-color: #F0F0F0;
+        padding: 10px 10px 5px;
+        margin-left: 0px; /* Override bootstrap */
+        border: 1px solid #EEE;
+    }
+
+    .ta-toolbar .btn-group {
+        margin-bottom: 5px;
+    }
+
+    .ta-editor, .white-box {
+        padding: 10px;
+        background-color: #FFF;
+        border: 1px solid #EEE;
+    }
+
+    textarea.ta-bind {
+        width: 100%;
+    }
+</style>
+<form novalidate ng-submit="update()">
+    <div class="form-group">
+        <label for="title">文章标题</label>
+        <input type="text" class="form-control" id="title" name="title" ng-model="article.title"/>
+    </div>
+    <div class="form-group">
+        <label for="introduction">文章简介</label>
+        <textarea type="text" class="form-control" cols="4" rows="4" id="introduction" name="introduction" ng-model="article.introduction" style="resize: none"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="labels">文章标签</label>
+        <input type="text" id="labels" class="form-control" title="多个标签逗号分隔" name="labels" ng-model="article.labels"
+               tooltip="多个标签用逗号分隔"
+               tooltip-placement="top"
+               tooltip-trigger="focus"
+               tooltip-enable="!inputModel"
+                />
+    </div>
+    <div class="form-group">
+        <label for="type">文章分类</label>
+        <select name="type" id="type" ng-init="article.type = init.types[0]" ng-model="article.type" class="form-control" ng-options="type.name for type in init.types"></select>
+    </div>
+    <div class="form-group">
+        <label for="content">文章内容</label>
+        <div text-angular ng-model="article.content" id="content" name="content" ta-text-editor-class="border-around" ta-html-editor-class="border-around"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-6">
+            <div class="pull-right">
+                <input type="submit" class="btn btn-success" value="保存"/>
+                <button class="btn btn-default">草稿</button>
+                <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="多个标签逗号分隔">查看效果</button>
+            </div>
+        </div>
+    </div>
+</form>
+
