@@ -5,8 +5,13 @@ module.exports = (function(){
         port = config.port,
         dbName = config.dbname,
         userName = config.username,
-        password = config.password,
+        password = config.password;
+    var mongoUrl;
+    if(userName && password) {
         mongoUrl = 'mongodb://' + userName + ':' + password + '@' + host +':' + port+ '/' + dbName;
+    } else {
+        mongoUrl = 'mongodb://' + host +':' + port+ '/' + dbName;
+    }
     var options = {
         server: {
             auto_reconnect: true,
