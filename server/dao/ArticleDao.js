@@ -6,7 +6,7 @@ var articleSchema = new mongoose.Schema({
     content         : {type : String, default : '<div></div>'},
     title           : {type : String, default: '未命名标题'},
     labels          : {type : [String], default: []},
-    introduction       : {type :  String, default: '<div></div>'},
+    introduction    : {type :  String, default: '<div></div>'},
     type            : {type : Number, default: 1},
     share_num       : {type : Number, default: 0},
     create_time     : {type : Date, default: Date.now()},
@@ -111,7 +111,26 @@ var update = function(document, callback) {
     });
 };
 
+var del = function(articleId, callback) {
+    var articleModel = db.model('blog_article', articleSchema);
+    var query = articleModel.findById(articleId);
+    query.remove(function(error, data) {
+        if(error) {
+            callback({
+                operate: false,
+                msg: error
+            })
+        } else {
+            callback({
+                operate: true,
+                msg: "操作成功"
+            })
+        }
+    })
+};
+
 module.exports.save = save;
 module.exports.query = query;
 module.exports.queryById = queryById;
 module.exports.update = update;
+module.exports.del = del;

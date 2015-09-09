@@ -37,5 +37,14 @@ router.put('/', function(req, res) {
     res.send(data.msg);
   });
 });
-
+/**
+ * 删除文章
+ */
+router.delete('/:articleId', function(req, res) {
+  var articleId = req.params.articleId;
+  console.log(articleId)
+  articleDao.del(articleId, function(data) {
+    res.send(data.msg);
+  });
+});
 module.exports = router;

@@ -21,13 +21,13 @@ app.use(session({
   secret: 'foo',
   store: new MongoStore({
     // Basic usage
-    host: '123.56.94.37', // Default, optional
+    host: '127.0.0.1', // Default, optional
     port: 27017, // Default, optional
     db: 'wsy', // Required
     collection: 'sessions',
-    // Basic authentication (optional)
-    //username: 'wangsiyuan',
-    //password: '123456',
+    //Basic authentication (optional)
+    username: 'wangsiyuan',
+    password: '123456',
 
     // Advanced options (optional)
     autoReconnect: true, // Default

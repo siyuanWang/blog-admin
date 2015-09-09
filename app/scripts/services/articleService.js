@@ -49,11 +49,25 @@ define(['app'], function(app) {
             return defer.promise;
         };
 
+        var del = function(articleId) {
+            var defer = $q.defer();
+            $http.delete('/article/'+articleId)
+                .success(function(data, status, headers, config) {
+                    defer.resolve(data);
+                })
+                .error(function(response, status, headers, config) {
+                    defer.reject(response);
+                });
+
+            return defer.promise;
+        };
+
         return {
             setArticle: setArticle,
             getArticles: getArticles,
             getArticleById: getArticleById,
-            updateArticle: updateArticle
+            updateArticle: updateArticle,
+            del: del
         }
     }]);
 });

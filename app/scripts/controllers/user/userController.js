@@ -26,7 +26,6 @@ define(['app'], function(app) {
                     $scope.users = users;
                 })
             }
-
         }
     };
     userController.$inject = injectParams;

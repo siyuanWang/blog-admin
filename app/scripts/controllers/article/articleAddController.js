@@ -24,6 +24,7 @@ define(['app'], function(app) {
 
         $scope.submit = function() {
             $scope.article.type = $scope.article.type.id;
+            $scope.article.labels = $scope.article.labels.split(',');
             $http.post('/article', $scope.article)
                 .success(function(data, status, headers, config) {
                     alert(data);
