@@ -13,6 +13,8 @@
     "ejs": "^2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.11.3",
+    "later": "^1.1.9",
+    "log4js": "^0.6.26",
     "mongoose": "^4.0.8",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
