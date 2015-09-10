@@ -11,7 +11,7 @@ var articleSchema = new mongoose.Schema({
     share_num       : {type : Number, default: 0},
     create_time     : {type : Date, default: Date.now()},
     update_time     : {type : Date, default: Date.now()},
-    draft           : {type : Number, default: 1}           //默认是草稿,发布是2
+    draft           : {type : Number, default: 1}           //默认是 1草稿,发布是2
 });
 
 var save = function(document, callback) {
@@ -91,13 +91,47 @@ var queryById = function(articleId, callback) {
         })
     }
 };
-
-var update = function(document, callback) {
+/**
+ * 修改 非$set(数据覆盖)
+ * @param document
+ * @param callback
+ */
+var updateNot$set = function(document, callback) {
     var articleModel = db.model('blog_article', articleSchema);
     var query = {_id: document._id};
+    console.log("query:", JSON.stringify(query));
     document['update_time'] = Date.now();
     articleModel.update(query, document, {}, function(error) {
+        console.log(arguments)
         if(error) {
+            console.log(error);
+            callback({
+                operate: false,
+                msg: error
+            })
+        } else {
+            callback({
+                operate: true,
+                msg: "操作成功"
+            })
+        }
+    });
+};
+/**
+ *
+ * @param query 检索条件
+ * @param document $set 的对象（替换字段值）
+ * @param callback
+ */
+var update$set = function(query, document, callback) {
+    var articleModel = db.model('blog_article', articleSchema);
+    document['update_time'] = Date.now();
+    console.log("query:" + JSON.stringify(query));
+    console.log("document:" + JSON.stringify(document));
+    query._id = mongoose.Types.ObjectId(query._id);
+    articleModel.update(query, {$set: document}, function(error) {
+        if(error) {
+            console.log(error);
             callback({
                 operate: false,
                 msg: error
@@ -132,5 +166,6 @@ var del = function(articleId, callback) {
 module.exports.save = save;
 module.exports.query = query;
 module.exports.queryById = queryById;
-module.exports.update = update;
+module.exports.updateNot$set = updateNot$set;
+module.exports.update$set = update$set;
 module.exports.del = del;

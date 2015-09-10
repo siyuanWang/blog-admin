@@ -55,7 +55,6 @@ router.get('/:userId', function(req, res) {
 router.put('/', function(req, res) {
   var data = req.body;
   delete data.confirmPassword;
-  console.log(data)
   userDao.update(data, function(data) {
     res.send(data.msg);
   });

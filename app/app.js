@@ -33,6 +33,22 @@ define([], function() {
             return $sce.trustAsHtml(htmlCode);
         }
     }]);
+    //替换draft 为“草稿”或者“已发布”
+    app.filter('articleDraftFilter', function() {
+        return function(draftValue) {
+            if(draftValue == 1) {
+                return '草稿';
+            } else {
+                return '已发布';
+            }
+        }
+    });
+    //替换article.labels 为逗号分隔的字符串
+    app.filter('articleLabelFilter', function() {
+        return function(labels) {
+            return labels.join(",");
+        }
+    });
 
     app.run(['$rootScope','$location', '$routeParams', function($rootScope, $location, $routeParams) {
         $rootScope.$on('$routeChangeSuccess', function(e, current, pre) {

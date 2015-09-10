@@ -33,8 +33,9 @@ router.post('/', function(req, res) {
  */
 router.put('/', function(req, res) {
   var data = req.body;
-  articleDao.update(data, function(data) {
-    res.send(data.msg);
+  console.log('update article data:', JSON.stringify(data));
+  articleDao.updateNot$set(data, function(data) {
+    res.send(data);
   });
 });
 /**
@@ -46,5 +47,18 @@ router.delete('/:articleId', function(req, res) {
   articleDao.del(articleId, function(data) {
     res.send(data.msg);
   });
+});
+/**
+ * 修改article.draft 1 草稿 2 已发布
+ */
+router.put('/draft/:articleId', function(req, res) {
+  var articleId = req.params.articleId;
+  var draft = req.body;
+
+  console.log(articleId)
+  console.log(draft);
+  articleDao.update$set({_id: articleId},draft, function(data) {
+    res.send(data);
+  })
 });
 module.exports = router;

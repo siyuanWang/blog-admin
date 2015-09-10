@@ -25,6 +25,7 @@ define(['app'], function(app) {
         $scope.submit = function() {
             $scope.article.type = $scope.article.type.id;
             $scope.article.labels = $scope.article.labels.split(',');
+            $scope.article['draft'] = 1;//发布文章默认是草稿
             $http.post('/article', $scope.article)
                 .success(function(data, status, headers, config) {
                     alert(data);

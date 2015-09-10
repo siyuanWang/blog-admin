@@ -74,6 +74,7 @@ var update = function(document, callback) {
     var userModel = db.model('blog_user', userSchema);
     var query = {_id: document._id};
     document['update_time'] = Date.now();
+    console.log('query:'+JSON.stringify(query))
     userModel.update(query, document, {}, function(error) {
         if(error) {
             callback({

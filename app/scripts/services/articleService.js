@@ -61,13 +61,31 @@ define(['app'], function(app) {
 
             return defer.promise;
         };
+        /**
+         * 下线文章
+         * @param articleId 文章_id
+         * @param draft 1草稿   2已发布
+         */
+        var updateDraft = function(articleId, draft) {
+            var defer = $q.defer();
+            $http.put('/article/draft/'+articleId, {draft: draft})
+                .success(function(data, status, headers, config) {
+                    defer.resolve(data);
+                })
+                .error(function(response, status, headers, config) {
+                    defer.reject(response);
+                });
+
+            return defer.promise;
+        };
 
         return {
             setArticle: setArticle,
             getArticles: getArticles,
             getArticleById: getArticleById,
             updateArticle: updateArticle,
-            del: del
+            del: del,
+            updateDraft: updateDraft
         }
     }]);
 });
