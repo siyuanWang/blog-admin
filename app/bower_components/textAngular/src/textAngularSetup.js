@@ -758,8 +758,7 @@ angular.module('textAngularSetup', [])
 		}
 	});
 	taRegisterTool('charcount', {
-		display: '<div id="toolbarCC" style="display:block; min-width:120px;">Characters: <span ng-bind="charcount"></span></div>',
-		disabled: true,
+		display: '<div style="display:block; min-width:120px;"><span colorpicker colorpicker-position="bottom" ng-model="nonInput.color">Font Color</span></div>',
 		charcount: 0,
 		activeState: function(){ // this fires on keyup
 			var textElement = this.$editor().displayElements.text;

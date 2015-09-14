@@ -5,9 +5,8 @@ define([], function() {
             '$provide','$filterProvider',
 
             function($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider,
-                     $provide, $filterProvider, $filter) {
+                     $provide, $filterProvider) {
                 console.log('app config.');
-
                 app.register = {
                     controller: $controllerProvider.register,
                     directive: $compileProvider.directive,
@@ -26,6 +25,46 @@ define([], function() {
                     .when('/article/update/:articleId',route.resolve('articleUpdateController','update','article', 'vm', false))
                     .when('/article/show/:articleId',route.resolve('articleShowController','show','article', 'vm', false))
                     .otherwise(route.resolve('articleController','articlelist','article', 'vm', false));
+
+                $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
+                    taRegisterTool('colourRed', {
+                        display: '<div class="btn btn-default"><i id="colorBtn" class="fa fa-font"></i></div>',
+                        action: function(){
+                            var colorDiv = '<div style="width:20px;height:20px;"></div>';
+                            var that = this;
+                            var $colorBtn = $('#colorBtn');
+                            $colorBtn.popover({
+                                title: 'ColorPicker',
+                                content: '<table id="colorTable">' +
+                                '<tr><td style="background-color: red;">'+colorDiv+'</td><td style="background-color: green;">'+colorDiv+'</td><td style="background-color: blue;">'+colorDiv+'</td><td style="background-color: black;">'+colorDiv+'</td></tr>' +
+                                '<tr><td style="background-color: white;">'+colorDiv+'</td><td style="background-color: grey;">'+colorDiv+'</td><td style="background-color: pink;">'+colorDiv+'</td><td style="background-color: orange;">'+colorDiv+'</td></tr>' +
+                                '<tr><td style="background-color: darkgrey;">'+colorDiv+'</td><td style="background-color: dodgerblue;">'+colorDiv+'</td><td style="background-color: purple;">'+colorDiv+'</td><td style="background-color: yellow;">'+colorDiv+'</td></tr>' +
+                                '</table>',
+                                placement : 'bottom',
+                                html: true
+                            });
+                            $("#colorTable").find("td").on('click',function(e) {
+                                var $this = $(this);
+                                $colorBtn.popover("destroy");
+                                that.$editor().wrapSelection('forecolor', $this.css('background-color'));
+                                e.preventDefault();
+                            })
+
+                        }
+                    });
+
+                    taRegisterTool('localUploadImg', {
+                        display: '<div class="btn btn-default"><a id="uploadPic" class="fa fa-file-image-o"></a></div>',
+                        action: function(){
+                            var $modal = $('<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;"> <div class="modal-dialog modal-sm"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4> </div> <div class="modal-body">small </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>');
+                            $modal.modal("show");
+                        }
+                    });
+                    // add the button to the default toolbar definition
+                    taOptions.toolbar[1].push('colourRed');
+                    taOptions.toolbar[1].push('localUploadImg');
+                    return taOptions;
+                }]);
             }]
     );
     app.filter('sanitize',['$sce', function($sce) {
