@@ -19,6 +19,7 @@
     "textAngular": "~1.4.3",
     "angular-datatables": "~0.4.3",
     "bootstrap-treeview": "~1.2.0",
-    "mjolnic-bootstrap-colorpicker": "~2.3.0"
+    "mjolnic-bootstrap-colorpicker": "~2.3.0",
+    "angular-bootstrap-file-field": "~0.1.3"
   }
 }

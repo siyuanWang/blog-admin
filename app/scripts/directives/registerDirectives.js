@@ -125,4 +125,16 @@ define(['app'], function(app) {
             }
         }
     });
+
+    app.directive('egTodo', function () {
+        return {
+            restrict: 'A',
+            scope: false,
+            link: function ($scope, element, attrs) {
+                element.change(function() {
+                    element.attr('checkedvvv', element.is(':checked') ? 'checked' : false);
+                });
+            }
+        };
+    });
 });

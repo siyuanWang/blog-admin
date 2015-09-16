@@ -1,6 +1,6 @@
 'use strict';
 define([], function() {
-    var app = angular.module('myApp',['ngRoute', 'routeResolverServices','ngAnimate','ui.router','ui.bootstrap','textAngular','datatables']);
+    var app = angular.module('myApp',['ngRoute', 'routeResolverServices','ngAnimate','ui.router','ui.bootstrap','textAngular','datatables','bootstrap.fileField']);
     app.config(['$routeProvider', 'routeResolverProvider','$controllerProvider','$compileProvider',
             '$provide','$filterProvider',
 
@@ -26,7 +26,7 @@ define([], function() {
                     .when('/article/show/:articleId',route.resolve('articleShowController','show','article', 'vm', false))
                     .otherwise(route.resolve('articleController','articlelist','article', 'vm', false));
 
-                $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
+                $provide.decorator('taOptions', ['taRegisterTool', '$delegate','$compile', function(taRegisterTool, taOptions, $compile){
                     taRegisterTool('colourRed', {
                         display: '<div class="btn btn-default"><i id="colorBtn" class="fa fa-font"></i></div>',
                         action: function(){
@@ -56,8 +56,53 @@ define([], function() {
                     taRegisterTool('localUploadImg', {
                         display: '<div class="btn btn-default"><a id="uploadPic" class="fa fa-file-image-o"></a></div>',
                         action: function(){
-                            var $modal = $('<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;"> <div class="modal-dialog modal-sm"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4> </div> <div class="modal-body">small </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>');
-                            $modal.modal("show");
+                            //var that = this;
+                            //console.log(that.$parent)
+                            //var element = $compile("<div>ahahahaha</div>")(that.$parent);
+                            //element.html("hahahah");
+                            //
+                            //var $modal = $('<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;"> <div class="modal-dialog modal-sm"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title" id="mySmallModalLabel">本地文件上传</h4></div><div class="modal-body"></div></div></div></div>');
+                            //$modal.modal("show");
+                            function insertNodeAtCursor(node) {
+                                var sel, range, html;
+                                if (window.getSelection) {
+                                    sel = window.getSelection();
+                                    if (sel.getRangeAt && sel.rangeCount) {
+                                        sel.getRangeAt(0).insertNode(node);
+                                    }
+                                } else if (document.selection && document.selection.createRange) {
+                                    range = document.selection.createRange();
+                                    html = (node.nodeType == 3) ? node.data : node.outerHTML;
+                                    range.pasteHTML(html);
+                                }
+                            }
+                            function placeCaretAtEnd(el) {
+                                el.focus();
+                                if (typeof window.getSelection != "undefined"
+                                    && typeof document.createRange != "undefined") {
+                                    var range = document.createRange();
+                                    range.setStartAfter( el );
+                                    range.setEndAfter( el );
+                                    var sel = window.getSelection();
+                                    sel.removeAllRanges();
+                                    sel.addRange(range);
+                                } else if (typeof document.body.createTextRange != "undefined") {
+                                    var textRange = document.body.createTextRange();
+                                    textRange.moveToElementText(el);
+                                    textRange.collapse(false);
+                                    textRange.select();
+                                }
+                            }
+
+                            var element = $compile('<file-field class="btn" ng-model="uploadFile"  preview="previewImage">Select File</file-field><br/><div ng-show="previewImage"><h3>Preview</h3><img ng-src="{{previewImage}}" width="200"></div>')(this.$parent);
+                            console.log(element)
+                            this.$editor().displayElements.text[0].focus();
+                            insertNodeAtCursor(element[0]);
+                            insertNodeAtCursor(element[1]);
+                            insertNodeAtCursor(element[2]);
+                            placeCaretAtEnd(element[0])
+                            return this.$editor().wrapSelection("localUploadImg", "&nbsp;");
+
                         }
                     });
                     // add the button to the default toolbar definition
