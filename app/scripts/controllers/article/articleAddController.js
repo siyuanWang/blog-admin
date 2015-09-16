@@ -7,7 +7,7 @@ define(['app'], function(app) {
             labels: "",
             content: ""
         };
-
+        $scope.uploadFiles = [];
         $scope.init = {
             types: [{
                 name: '前端',

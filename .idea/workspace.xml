@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65f8acdb-f936-4c76-867e-887d7d226e73" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bower_components/DataTables/.bower.json" afterPath="$PROJECT_DIR$/app/bower_components/DataTables/.bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bower_components/angular/.bower.json" afterPath="$PROJECT_DIR$/app/bower_components/angular/.bower.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.js" afterPath="$PROJECT_DIR$/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bower.json" afterPath="$PROJECT_DIR$/app/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/index.html" afterPath="$PROJECT_DIR$/app/views/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/directives/registerDirectives.js" afterPath="$PROJECT_DIR$/app/scripts/directives/registerDirectives.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -29,37 +26,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.75342464">
-              <caret line="101" column="56" selection-start-line="101" selection-start-column="56" selection-end-line="101" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
               <folding>
-                <marker date="1442374831548" expanded="true" signature="2247:2270" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2605:2627" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2657:2681" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2711:2734" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2764:2788" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2864:2888" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2918:2941" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="2971:2994" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="3024:3049" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="3125:3152" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="3182:3211" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="3241:3266" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="3296:3321" placeholder="..." />
-                <marker date="1442374831548" expanded="true" signature="4621:4635" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2247:2270" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2605:2627" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2657:2681" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2711:2734" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2764:2788" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2864:2888" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2918:2941" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="2971:2994" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="3024:3049" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="3125:3152" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="3182:3211" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="3241:3266" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="3296:3321" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="4572:4592" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="4624:4634" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="4859:4870" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="4983:4994" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="5143:5157" placeholder="..." />
+                <marker date="1442394532692" expanded="true" signature="5372:5390" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registerDirectives.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="registerDirectives.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/directives/registerDirectives.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="134" column="44" selection-start-line="134" selection-start-column="34" selection-end-line="134" selection-end-column="44" />
-              <folding />
+            <state vertical-scroll-proportion="0.6712329">
+              <caret line="153" column="47" selection-start-line="153" selection-start-column="47" selection-end-line="153" selection-end-column="47" />
+              <folding>
+                <marker date="1442394591254" expanded="true" signature="4752:4764" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -121,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+              <caret line="9" column="26" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -183,12 +187,12 @@
         <option value="$PROJECT_DIR$/app/bower_components/textAngular/dist/textAngular.js" />
         <option value="$PROJECT_DIR$/app/bower_components/textAngular/src/textAngularSetup.js" />
         <option value="$PROJECT_DIR$/app/views/test.html" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js" />
         <option value="$PROJECT_DIR$/app/views/update-imag.html" />
         <option value="$PROJECT_DIR$/app/bower_components/angular/angular.js" />
         <option value="$PROJECT_DIR$/app/views/index.html" />
-        <option value="$PROJECT_DIR$/app/scripts/directives/registerDirectives.js" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js" />
         <option value="$PROJECT_DIR$/app/app.js" />
+        <option value="$PROJECT_DIR$/app/scripts/directives/registerDirectives.js" />
       </list>
     </option>
   </component>
@@ -972,14 +976,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/bower_components/textAngular/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.133333">
@@ -999,18 +995,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/directives/registerDirectives.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="134" column="44" selection-start-line="134" selection-start-column="34" selection-end-line="134" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/bower_components/angular-bootstrap-file-field/demo/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/article/articleAddController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -1025,23 +1021,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75342464">
-          <caret line="101" column="56" selection-start-line="101" selection-start-column="56" selection-end-line="101" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
           <folding>
-            <marker date="1442374831548" expanded="true" signature="2247:2270" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2605:2627" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2657:2681" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2711:2734" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2764:2788" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2864:2888" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2918:2941" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="2971:2994" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="3024:3049" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="3125:3152" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="3182:3211" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="3241:3266" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="3296:3321" placeholder="..." />
-            <marker date="1442374831548" expanded="true" signature="4621:4635" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2247:2270" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2605:2627" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2657:2681" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2711:2734" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2764:2788" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2864:2888" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2918:2941" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="2971:2994" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="3024:3049" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="3125:3152" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="3182:3211" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="3241:3266" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="3296:3321" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="4572:4592" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="4624:4634" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="4859:4870" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="4983:4994" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="5143:5157" placeholder="..." />
+            <marker date="1442394532692" expanded="true" signature="5372:5390" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/directives/registerDirectives.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6712329">
+          <caret line="153" column="47" selection-start-line="153" selection-start-column="47" selection-end-line="153" selection-end-column="47" />
+          <folding>
+            <marker date="1442394591254" expanded="true" signature="4752:4764" placeholder="..." />
           </folding>
         </state>
       </provider>

@@ -56,53 +56,21 @@ define([], function() {
                     taRegisterTool('localUploadImg', {
                         display: '<div class="btn btn-default"><a id="uploadPic" class="fa fa-file-image-o"></a></div>',
                         action: function(){
-                            //var that = this;
-                            //console.log(that.$parent)
-                            //var element = $compile("<div>ahahahaha</div>")(that.$parent);
-                            //element.html("hahahah");
-                            //
-                            //var $modal = $('<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;"> <div class="modal-dialog modal-sm"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title" id="mySmallModalLabel">本地文件上传</h4></div><div class="modal-body"></div></div></div></div>');
-                            //$modal.modal("show");
-                            function insertNodeAtCursor(node) {
-                                var sel, range, html;
-                                if (window.getSelection) {
-                                    sel = window.getSelection();
-                                    if (sel.getRangeAt && sel.rangeCount) {
-                                        sel.getRangeAt(0).insertNode(node);
-                                    }
-                                } else if (document.selection && document.selection.createRange) {
-                                    range = document.selection.createRange();
-                                    html = (node.nodeType == 3) ? node.data : node.outerHTML;
-                                    range.pasteHTML(html);
-                                }
+                            var articleScope = this.$parent.$parent;
+                            var textAngularScope = this.$parent;
+                            if(textAngularScope.uploadFile) {//如果有上传的文件，就push进去
+                                articleScope.uploadFiles.push(textAngularScope.uploadFile);
                             }
-                            function placeCaretAtEnd(el) {
-                                el.focus();
-                                if (typeof window.getSelection != "undefined"
-                                    && typeof document.createRange != "undefined") {
-                                    var range = document.createRange();
-                                    range.setStartAfter( el );
-                                    range.setEndAfter( el );
-                                    var sel = window.getSelection();
-                                    sel.removeAllRanges();
-                                    sel.addRange(range);
-                                } else if (typeof document.body.createTextRange != "undefined") {
-                                    var textRange = document.body.createTextRange();
-                                    textRange.moveToElementText(el);
-                                    textRange.collapse(false);
-                                    textRange.select();
-                                }
-                            }
-
-                            var element = $compile('<file-field class="btn" ng-model="uploadFile"  preview="previewImage">Select File</file-field><br/><div ng-show="previewImage"><h3>Preview</h3><img ng-src="{{previewImage}}" width="200"></div>')(this.$parent);
-                            console.log(element)
-                            this.$editor().displayElements.text[0].focus();
-                            insertNodeAtCursor(element[0]);
-                            insertNodeAtCursor(element[1]);
-                            insertNodeAtCursor(element[2]);
-                            placeCaretAtEnd(element[0])
-                            return this.$editor().wrapSelection("localUploadImg", "&nbsp;");
-
+                            var modalBody = '<div style="margin-bottom: 30px;"><div class="btn-group" style="width:100%" ng-show="previewImage"><button class="btn btn-success" sure-upload>确认上传</button><button class="btn btn-danger" cancel-upload>取消上传</button></div><file-field ng-show="previewImage == undefined" class="btn btn-default" style="width:100%;" ng-model="uploadFile"  preview="previewImage">upload</file-field></div><div ng-show="previewImage"><img style="width:100%;" ng-src="{{previewImage}}"/></div>';
+                            var element = $compile('<div class="modal fade" tabindex="-1" role="dialog" style="display: none;"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 style="text-align: center">本地文件上传</h4></div><div class="modal-body">'+modalBody+'</div></div></div></div>')(this);
+                            var $editor = this.$editor();
+                            var $modal = $(element);
+                            $modal.modal("show");
+                            $modal.on("hidden.bs.modal", function(e) {
+                                console.log($editor.displayElements.text)
+                                $editor.displayElements.text[0].focus();
+                            });
+                            this.modal = $modal;
                         }
                     });
                     // add the button to the default toolbar definition

@@ -126,14 +126,35 @@ define(['app'], function(app) {
         }
     });
 
-    app.directive('egTodo', function () {
+    app.directive('sureUpload', function ($compile) {
         return {
             restrict: 'A',
             scope: false,
             link: function ($scope, element, attrs) {
-                element.change(function() {
-                    element.attr('checkedvvv', element.is(':checked') ? 'checked' : false);
+                var $sureUploadBtn = angular.element(element);
+                var $editor = $scope.$editor();
+                $sureUploadBtn.on("click", function(e) {
+                    var img = $compile('<div style="padding:5px;"><img ng-src="'+$scope.previewImage+'" width="400"/></div>')(this);
+                    $editor.displayElements.text.append(img);
+                    $scope.modal.modal('hide');
+                    $scope.previewImage = undefined;
+                    $scope.$parent.$parent.uploadFiles.push($scope.uploadFile);
+                })
+            }
+        };
+    });
+
+    app.directive('cancelUpload', function ($compile) {
+        return {
+            restrict: 'A',
+            scope: false,
+            link: function ($scope, element, attrs) {
+                var $cancelUploadBtn = angular.element(element);
+                $cancelUploadBtn.on('click', function(e) {
+                    $scope.modal.modal('hide');
+                    $scope.previewImage = undefined;
                 });
+
             }
         };
     });
