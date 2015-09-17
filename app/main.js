@@ -28,7 +28,8 @@ require(
         'scripts/services/articleService',
         'scripts/services/commentService',
         'scripts/services/userService',
-        'scripts/filters/userFilter'
+        'scripts/filters/appFilter',
+        'scripts/config/appConfig'
     ],
     function(app) {
         angular.bootstrap(document, ['myApp']);
