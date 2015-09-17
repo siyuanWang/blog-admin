@@ -6,9 +6,10 @@ var router = express.Router();
  * 获得文章列表
  */
 router.get('/', function(req, res) {
+
   articleDao.query(function(result) {
     res.send(result);
-  });
+  },undefined, undefined, 0);
 
 });
 /**

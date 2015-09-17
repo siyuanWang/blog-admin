@@ -38,8 +38,9 @@ var save = function(document, callback) {
  * @param callback {operate: boolean, msg: String, data: Object} operate当操作成功时返回true,否则为false。msg：当operate == false时，有值。data: 查出的数据
  * @param conditions {查询条件} {key: value} 键值对，键为字段，值是字段的内容
  * @param fields {查询字段} {String} example: 'UserName Email UserType' 要查询空格分隔的三个字段
+ * @param skip {跳过查询}
  */
-var query = function(callback, conditions, fields) {
+var query = function(callback, conditions, fields, skip) {
     var articleModel = db.model('blog_article', articleSchema);
     var query;
     //如果有查询条件
@@ -52,7 +53,8 @@ var query = function(callback, conditions, fields) {
     if(fields) {
         query.select(fields);
     }
-
+    //query.limit(10);
+    //query.skip(skip);
     query.exec(function(error, result) {
         if(error) {
             callback({
