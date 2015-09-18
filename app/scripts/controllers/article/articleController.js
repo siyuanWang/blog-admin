@@ -4,7 +4,7 @@ define(['app'], function(app) {
         $scope.articles = [];
         var promise = articleService.getArticles();
         promise.then(function(data) {
-            $scope.articles = data.data;
+            $scope.articles = data;
         });
 
         $scope.del = function(articleId) {

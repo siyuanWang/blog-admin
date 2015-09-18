@@ -1,6 +1,7 @@
 'use strict';
 var db = require("./util/dbUtil");
 var mongoose = require('mongoose');
+var Q = require('q');
 
 var articleSchema = new mongoose.Schema({
     content         : {type : String, default : '<div></div>'},
@@ -14,33 +15,29 @@ var articleSchema = new mongoose.Schema({
     draft           : {type : Number, default: 1}           //默认是 1草稿,发布是2
 });
 
-var save = function(document, callback) {
+var save = function(document) {
+    var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     var articleEntity = new articleModel(document);
-    articleEntity.save(function(error) {
+    articleEntity.save(function(error, data) {
         if(error) {
             console.log(error);
-            callback({
-                operate: false,
-                msg: error
-            })
+            defered.reject(error);
         } else {
             console.log('saved OK!');
-            callback({
-                operate: true,
-                msg: "操作成功"
-            })
+            defered.resolve(data);
         }
     });
+
+    return defered.promise;
 };
 /**
  * 查询
- * @param callback {operate: boolean, msg: String, data: Object} operate当操作成功时返回true,否则为false。msg：当operate == false时，有值。data: 查出的数据
  * @param conditions {查询条件} {key: value} 键值对，键为字段，值是字段的内容
  * @param fields {查询字段} {String} example: 'UserName Email UserType' 要查询空格分隔的三个字段
- * @param skip {跳过查询}
  */
-var query = function(callback, conditions, fields, skip) {
+var query = function(conditions, fields) {
+    var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     var query;
     //如果有查询条件
@@ -53,116 +50,89 @@ var query = function(callback, conditions, fields, skip) {
     if(fields) {
         query.select(fields);
     }
-    //query.limit(10);
-    //query.skip(skip);
     query.exec(function(error, result) {
         if(error) {
-            callback({
-                operate: false,
-                msg: error
-            })
+            defered.reject(error);
         } else {
-            callback({
-                operate: true,
-                data: result
-            });
+            defered.resolve(result);
         }
-    })
+    });
+
+    return defered.promise;
 };
 /**
  * 根据articleId 查询
  * @param articleId
- * @param callback
  */
-var queryById = function(articleId, callback) {
+var queryById = function(articleId) {
+    var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     if(articleId) {
         articleModel.findById(articleId, function(error, result) {
             if(error) {
-                console.log(error);
-                callback({
-                    operate: false,
-                    msg: error
-                })
+                defered.reject(error);
             } else {
-                callback({
-                    operate: true,
-                    data: result
-                });
+                defered.resolve(result);
             }
         })
     }
+
+    return defered.promise;
 };
 /**
  * 修改 非$set(数据覆盖)
  * @param document
- * @param callback
  */
-var updateNot$set = function(document, callback) {
+var updateNot$set = function(document) {
+    var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     var query = {_id: document._id};
-    console.log("query:", JSON.stringify(query));
     document['update_time'] = Date.now();
-    articleModel.update(query, document, {}, function(error) {
-        console.log(arguments)
+    articleModel.update(query, document, {}, function(error, result) {
         if(error) {
-            console.log(error);
-            callback({
-                operate: false,
-                msg: error
-            })
+            defered.reject(error);
         } else {
-            callback({
-                operate: true,
-                msg: "操作成功"
-            })
+            defered.resolve(result);
         }
     });
+
+    return defered.promise;
 };
 /**
  *
  * @param query 检索条件
  * @param document $set 的对象（替换字段值）
- * @param callback
  */
-var update$set = function(query, document, callback) {
+var update$set = function(query, document) {
+    var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     document['update_time'] = Date.now();
     console.log("query:" + JSON.stringify(query));
     console.log("document:" + JSON.stringify(document));
     query._id = mongoose.Types.ObjectId(query._id);
-    articleModel.update(query, {$set: document}, function(error) {
+    articleModel.update(query, {$set: document}, function(error, result) {
         if(error) {
-            console.log(error);
-            callback({
-                operate: false,
-                msg: error
-            })
+            defered.reject(error);
         } else {
-            callback({
-                operate: true,
-                msg: "操作成功"
-            })
+            defered.resolve(result);
         }
     });
+
+    return defered.promise;
 };
 
-var del = function(articleId, callback) {
+var del = function(articleId) {
+    var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     var query = articleModel.findById(articleId);
-    query.remove(function(error, data) {
+    query.remove(function(error, result) {
         if(error) {
-            callback({
-                operate: false,
-                msg: error
-            })
+            defered.reject(error);
         } else {
-            callback({
-                operate: true,
-                msg: "操作成功"
-            })
+            defered.resolve(result);
         }
-    })
+    });
+    return defered.promise;
 };
 
 module.exports.save = save;
