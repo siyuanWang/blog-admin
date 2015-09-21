@@ -4,6 +4,7 @@ var express = require('express');
 var articleDao = require('../dao/ArticleDao');
 var labelDao = require('../dao/LabelDao');
 var router = express.Router();
+var LABEL_INSERT_COMPLETE = false;//暂未考虑线程安全问题
 /**
  * 获得文章列表
  */
@@ -56,8 +57,18 @@ function dealLabel(labelNames,index, length) {
           console.log("saved label:"+JSON.stringify(data));
           if(index < length) {
             dealLabel(labelNames, index, length);
+          } else {
+            LABEL_INSERT_COMPLETE = true;
           }
         })
+    } else {
+      index++;
+      console.log("label exist, label:"+ data);
+      if(index < length) {
+        dealLabel(labelNames, index, length);
+      } else {
+        LABEL_INSERT_COMPLETE = true;
+      }
     }
   })
 }
@@ -69,21 +80,31 @@ router.post('/', function(req, res) {
   var article = req.body;
   var labels = article.labels;
   var articleId;
+  //step1: insert the article
   articleDao.save(article).then(function(articleDocument){
     articleId = articleDocument._id;
   }, function(error) {
     res.send(error);
     throw new Error('insert article error:' + error);
-  }).then(function() {//查询label,如果没有则新增一条label step2
-    //查询，没有则新增一条
+  }).then(function() {//step2:query label,if not exist,insert label
     dealLabel(labels, 0, labels.length);
-  }).then(function() {
-    //给每一个label.articleIds添加上articleId
-    labelDao.addArticleIdByLabelName({label_name: {$in: labels}}, [articleId]).then(function (result) {
-      res.send(result);
-    }, function (error) {
-      console.log(error);
-    })
+    //查询，没有则新增一条
+  }).then(function() {//step3: push the article._id into label.articleIds
+    var interval = setInterval(function() {
+      if(LABEL_INSERT_COMPLETE) {
+        //给每一个label.articleIds添加上articleId
+        labelDao.addArticleIdByLabelName({label_name: {$in: labels}}, [articleId]).then(function (result) {
+          LABEL_INSERT_COMPLETE = false;
+          console.log("LABEL_INSERT_COMPLETE = " + LABEL_INSERT_COMPLETE);
+          clearInterval(interval);
+          res.send(result);
+        }, function (error) {
+          console.log(error);
+        })
+      }
+
+    }, 1000);
+
   });
 });
 /**
