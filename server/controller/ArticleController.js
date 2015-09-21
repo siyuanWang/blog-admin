@@ -27,6 +27,41 @@ router.get('/:id', function(req, res) {
     res.send({});
   });
 });
+
+function queryLabel(labelName) {
+  return labelDao.query({label_name: labelName}, undefined);
+}
+
+function saveLabel(labelName) {
+  return labelDao.save({
+    label_name: labelName,
+    article_num: 0,
+    articles: []
+  });
+}
+/**
+ * 递归，迭代所有labelNames,查询每个元素label,没有labels则新增一条
+ * @param labelNames
+ * @param index
+ * @param length
+ */
+function dealLabel(labelNames,index, length) {
+  if(index == length)return;
+  var queryPromise = queryLabel(labelNames[index]);
+  queryPromise.then(function(data) {
+    if(data.length === 0) {//没有label，插入一条
+        var savePromise = saveLabel(labelNames[index]);
+        savePromise.then(function(data) {
+          index++;
+          console.log("saved label:"+JSON.stringify(data));
+          if(index < length) {
+            dealLabel(labelNames, index, length);
+          }
+        })
+    }
+  })
+}
+
 /**
  * 新增一个文章
  */
@@ -34,42 +69,22 @@ router.post('/', function(req, res) {
   var article = req.body;
   var labels = article.labels;
   var articleId;
-  Q.fcall(function() {//保存文章 step1
-    console.log("step1");
-    articleDao.save(article).then(function(articleDocument){
-      articleId = articleDocument.data._id;
-      console.log("step1 done");
-    }, function(error) {
-      res.send(error);
-      throw new Error('insert article error:' + error);
-    })
-
+  articleDao.save(article).then(function(articleDocument){
+    articleId = articleDocument._id;
+  }, function(error) {
+    res.send(error);
+    throw new Error('insert article error:' + error);
   }).then(function() {//查询label,如果没有则新增一条label step2
-    console.log("step2");
-    var index = 1;
-    for(var i = 0, length = labels.length; i < length; i++)  {
-      labelDao.query({name: labels[i]}).then(function(data) {
-        console.log("step2 loop "+index);
-        index++;
-      })
-    }
-
-    console.log("step2 done");
-
-  }).then(function() {//往label中插入文章_id step3
-    console.log("step3");
+    //查询，没有则新增一条
+    dealLabel(labels, 0, labels.length);
+  }).then(function() {
     //给每一个label.articleIds添加上articleId
-    labelDao.addArticleIdByLabelName({name: {$in:labels}}, [articleId]).then(function(result) {
-      console.log("step3 done");
+    labelDao.addArticleIdByLabelName({label_name: {$in: labels}}, [articleId]).then(function (result) {
       res.send(result);
-    }, function(error) {
+    }, function (error) {
       console.log(error);
-    });
-  }).catch(function(error) {
-    console.log(error);
-  }).done();
-
-  console.log("all done.")
+    })
+  });
 });
 /**
  * 修改文章

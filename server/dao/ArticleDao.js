@@ -20,11 +20,10 @@ var save = function(document) {
     var articleModel = db.model('blog_article', articleSchema);
     var articleEntity = new articleModel(document);
     articleEntity.save(function(error, data) {
+        console.log(data);
         if(error) {
-            console.log(error);
             defered.reject(error);
         } else {
-            console.log('saved OK!');
             defered.resolve(data);
         }
     });

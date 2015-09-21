@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 var Q = require('q');
 
 var labelSchema = new mongoose.Schema({
-    name            : {type : String}, //label名
+    label_name      : {type : String}, //label名
     article_num     : {type : Number, default: 0},//标签下文章的数量
-    articles        : {type : [String]}//标签下的文章_id集合
+    articles        : {type : [String], default: []}//标签下的文章_id集合
 });
 /**
  * 新增一个标签
@@ -28,8 +28,8 @@ var save = function(document) {
 };
 /**
  * 查询
- * @param conditions {查询条件} {key: value} 键值对，键为字段，值是字段的内容
- * @param fields {查询字段} {String} example: 'UserName Email UserType' 要查询空格分隔的三个字段
+ * @param conditions 查询条件 键值对，键为字段，值是字段的内容
+ * @param fields 查询字段 String example: 'UserName Email UserType' 要查询空格分隔的三个字段
  */
 var query = function(conditions, fields) {
     var defered = Q.defer();
@@ -80,12 +80,17 @@ var updateNot$set = function(document) {
  *
  * @param query 查询条件
  * @param articleIds 要插入的文章ID
+ *
+ * bug:
+ * 1、第一次插入的时候，push不进去articleId,第二次，才能push进去。
  */
 var addArticleIdByLabelName = function(query, articleIds) {
     var defered = Q.defer();
     var labelModel = db.model('blog_label', labelSchema);
-    labelModel.update(query, {$push: {labels: {$each: articleIds}}}, function(error, data) {
+    console.log(query);
+    labelModel.update(query, {$push: {articles: {$each: articleIds}}},{multi:true}, function(error, data) {
         if(error) {
+            console.log("addArticleIdByLabelName is error:", error);
             defered.reject(error);
         } else {
             defered.resolve(data)
