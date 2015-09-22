@@ -30,8 +30,9 @@ var save = function(document) {
  * 查询
  * @param conditions 查询条件 键值对，键为字段，值是字段的内容
  * @param fields 查询字段 String example: 'UserName Email UserType' 要查询空格分隔的三个字段
+ * @param pagination skip,limit
  */
-var query = function(conditions, fields) {
+var query = function(conditions, fields, pagination) {
     var defered = Q.defer();
     var labelModel = db.model('blog_label', labelSchema);
     var query;
@@ -45,7 +46,12 @@ var query = function(conditions, fields) {
     if(fields) {
         query.select(fields);
     }
-
+    if(pagination.skip) {
+        query.skip(pagination.skip);
+    }
+    if(pagination.limit) {
+        query.limit(pagination.limit)
+    }
     query.exec(function(error, result) {
         if(error) {
             defered.reject(error);
@@ -99,8 +105,27 @@ var addArticleIdByLabelName = function(query, articleIds) {
 
     return defered.promise;
 };
+/**
+ * 获得记录总数
+ * @returns {*}
+ */
+function getCount() {
+    var defered = Q.defer();
+    var labelModel = db.model('blog_label', labelSchema);
+    var query = labelModel.find({}).count();
+    query.exec(function(error, result) {
+        if(error) {
+            defered.reject(error);
+        } else {
+            defered.resolve(result);
+        }
+    });
+
+    return defered.promise;
+}
 
 module.exports.save = save;
 module.exports.query = query;
 module.exports.updateNot$set = updateNot$set;
 module.exports.addArticleIdByLabelName = addArticleIdByLabelName;
+module.exports.getCount = getCount;

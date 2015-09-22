@@ -8,9 +8,8 @@ var router = express.Router();
  * 获得标签集合
  */
 router.get('/', function(req, res) {
-    var skip = req.param.skip;
-    var limit = req.param.limit;
-    var promise = labelService.queryList(skip, limit);
+    var pagination = req.query;
+    var promise = labelService.queryList(pagination);
     promise.then(function(result) {
         res.send(httpResUtil.successWithResult(result));
     }, function(error) {
