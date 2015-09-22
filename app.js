@@ -6,6 +6,7 @@ var MongoStore = require('connect-mongo')(session);
 var loginController = require('./server/controller/LoginController');
 var userController = require('./server/controller/UserController');
 var articleController = require('./server/controller/ArticleController');
+var labelController = require('./server/controller/LabelController');
 
 var app = express();
 app.engine('.html', require('ejs').__express);
@@ -39,6 +40,7 @@ app.use(session({
 app.use('/login', loginController);
 app.use('/user', userController);
 app.use('/article', articleController);
+app.use('/label', labelController);
 
 //blog-admin index
 app.get('/index', function(req, res, next) {

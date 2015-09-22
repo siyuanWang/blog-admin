@@ -32,8 +32,8 @@ var save = function(document) {
 };
 /**
  * 查询
- * @param conditions {查询条件} {key: value} 键值对，键为字段，值是字段的内容
- * @param fields {查询字段} {String} example: 'UserName Email UserType' 要查询空格分隔的三个字段
+ * @param conditions 键值对，键为字段，值是字段的内容
+ * @param fields example: 'UserName Email UserType' 要查询空格分隔的三个字段
  */
 var query = function(conditions, fields) {
     var defered = Q.defer();

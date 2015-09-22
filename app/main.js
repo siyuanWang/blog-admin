@@ -28,6 +28,7 @@ require(
         'scripts/services/articleService',
         'scripts/services/commentService',
         'scripts/services/userService',
+        'scripts/services/labelService',
         'scripts/filters/appFilter',
         'scripts/config/appConfig'
     ],
