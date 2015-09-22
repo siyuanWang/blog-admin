@@ -4,21 +4,30 @@ define(['app'], function(app) {
         $scope.articles = [];
         var promise = articleService.getArticles();
         promise.then(function(data) {
-            $scope.articles = data;
+            if(data.status == 0) {
+                alert("后台错误");
+            }
+            $scope.articles = data.result;
         });
 
         $scope.del = function(articleId) {
             if($window.confirm('是否删除文章？')) {
                 var promise = articleService.del(articleId);
                 promise.then(function(data) {
-                    alert(data);
-                    var articles = [];
-                    angular.forEach($scope.articles, function(article, index) {
-                        if(articleId != article._id) {
-                            articles.push(article);
-                        }
-                    });
-                    $scope.articles = articles;
+                    if(data.status == 0) {
+                        alert(data.msg);
+                    } else {
+                        alert(data.msg);
+                        var articles = [];
+                        angular.forEach($scope.articles, function(article, index) {
+                            if(articleId != article._id) {
+                                articles.push(article);
+                            }
+                        });
+                        $scope.articles = articles;
+                    }
+
+
                 })
             }
         };
@@ -27,7 +36,7 @@ define(['app'], function(app) {
             if($window.confirm('是否发布文章？')) {
                 var promise = articleService.updateDraft(articleId, 2);
                 promise.then(function(data) {
-                    if(data.operate) {
+                    if(data.status == 1) {
                         alert(data.msg);
                         angular.forEach($scope.articles, function(article, index) {
                             if(article._id == articleId) {
@@ -36,7 +45,7 @@ define(['app'], function(app) {
                             }
                         });
                     } else {
-                        alert(data.msg.message)
+                        alert(data.msg)
                     }
 
                 })
@@ -47,7 +56,7 @@ define(['app'], function(app) {
             if($window.confirm('是否下线文章？')) {
                 var promise = articleService.updateDraft(articleId, 1);
                 promise.then(function(data) {
-                    if(data.operate) {
+                    if(data.status == 1) {
                         alert(data.msg);
                         angular.forEach($scope.articles, function(article, index) {
                             if(article._id == articleId) {
@@ -56,24 +65,11 @@ define(['app'], function(app) {
                             }
                         });
                     } else {
-                        alert(data.msg.message)
+                        alert(data.msg)
                     }
                 })
             }
         };
-
-        function getArticleById(articleId) {
-            var returnArticle = null;
-            angular.forEach($scope.articles, function(article, index) {
-                if(articleId != article._id) {
-                    //草稿
-                    returnArticle = article;
-                    return false;
-                }
-            });
-
-            return returnArticle;
-        }
     };
 
     articleController.inject = ['$scope', '$http', 'articleService','$window'];

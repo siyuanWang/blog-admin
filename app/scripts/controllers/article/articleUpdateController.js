@@ -14,8 +14,7 @@ define(['app'], function(app) {
 
         var promise = articleService.getArticleById(articleId);
         promise.then(function(data) {
-            var articleData = data.data;
-            console.log(articleData)
+            var articleData = data.result;
             $scope.article = articleData;
             $scope.article.labels = $scope.article.labels.join(',');
             setType(articleData.type)
@@ -28,11 +27,11 @@ define(['app'], function(app) {
             var updatePromise = articleService.updateArticle($scope.article);
             updatePromise.then(function(data) {
                 console.log(data)
-                if(data.operate) {
+                if(data.status == 1) {
                     alert(data.msg);
                     $location.path('/article');
                 } else {
-                    alert(data.msg.message);
+                    alert(data.msg);
                 }
 
 
