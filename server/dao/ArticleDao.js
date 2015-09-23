@@ -34,8 +34,9 @@ var save = function(document) {
  * 查询
  * @param conditions 键值对，键为字段，值是字段的内容
  * @param fields example: 'UserName Email UserType' 要查询空格分隔的三个字段
+ * @pagination pagination skip,limit
  */
-var query = function(conditions, fields) {
+var query = function(conditions, fields, pagination) {
     var defered = Q.defer();
     var articleModel = db.model('blog_article', articleSchema);
     var query;
@@ -48,6 +49,12 @@ var query = function(conditions, fields) {
     //如果规定查询字段
     if(fields) {
         query.select(fields);
+    }
+    if(pagination && pagination.skip) {
+        query.skip(pagination.skip);
+    }
+    if(pagination && pagination.limit) {
+        query.limit(pagination.limit)
     }
     query.exec(function(error, result) {
         if(error) {

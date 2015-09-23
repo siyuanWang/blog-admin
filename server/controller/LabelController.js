@@ -19,8 +19,10 @@ router.get('/', function(req, res) {
 /**
  * 获得标签集合下的文章列表
  */
-router.get('/:articleId', function(req, res) {
-    var promise = labelService.queryArticleByLabelId(articleId);
+router.get('/:labelId', function(req, res) {
+    var pagination = req.query;
+    var labelId = req.params.labelId;
+    var promise = labelService.queryArticleByLabelId(labelId, pagination);
     promise.then(function(result) {
         res.send(httpResUtil.successWithResult(result));
     }, function(error) {

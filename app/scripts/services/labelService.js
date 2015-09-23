@@ -14,9 +14,9 @@ define(['app'], function(app) {
             return defer.promise;
         }
 
-        function getLabelArticlesByLabelId(labelId) {
+        function getLabelArticlesByLabelId(labelId, pagination) {
             var defer = $q.defer();
-            $http.get('/label/'+labelId)
+            $http.get('/label/'+labelId,{params: pagination})
                 .success(function(data, status, headers, config) {
                     defer.resolve(data);
                 })

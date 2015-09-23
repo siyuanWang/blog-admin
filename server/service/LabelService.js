@@ -38,15 +38,25 @@ function queryList(pagination) {
 /**
  * 根据labelId,查询出所有的Article对象
  * @param labelId
+ * @param pagination pagination<page, rows, count> 当前页面，总记录数，每页显示数量
  */
-function queryArticleByLabelId(labelId) {
+function queryArticleByLabelId(labelId, pagination) {
     var defer = Q.defer();
+    var page = parseInt(pagination.page, 10), rows = parseInt(pagination.rows,10), count = parseInt(pagination.count, 10);
+    var skip = (page-1)*count;
+    var limit = count;
+    var callbackData = {};
     labelDao.query({_id: labelId}, undefined).then(function(result) {
-        var articles = result.articles;
+        var articles = result[0].articles;
         logger.debug("articles:{}", articles);
-        articleDao.query({_id:{$in: articles}}, undefined).then(function(result){
+        articleDao.query({_id:{$in: articles}}, "_id title", {skip: skip, limit: limit}).then(function(result){
             logger.debug(result);
-            defer.resolve(result);
+            callbackData.count = count;
+            callbackData.page = page;
+            //label_id下的文章总数，即articles.length
+            callbackData.rows = articles.length;
+            callbackData.list = result;
+            defer.resolve(callbackData);
         }, function(error) {
             logger.error("queryArticleByLabelId error:{}", error);
             defer.reject(error);

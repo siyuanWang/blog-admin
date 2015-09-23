@@ -168,7 +168,6 @@ define(['app'], function(app) {
                 scope.$on("paginationData", function() {
                     var needRequest = true;//need request remote data
                     var page = scope.pagination.page, rows = scope.pagination.rows, count =  scope.pagination.count;
-                    console.log("page:"+page+",rows:"+rows+",count:"+count);
                     var pageNum = (rows%count == 0)?(Math.floor(rows/count)):(Math.floor(rows/count) + 1);
                     //remove pagination container
                     angular.element(element).find(".pagination-container").remove();

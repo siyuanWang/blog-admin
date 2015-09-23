@@ -1,0 +1,18 @@
+<div>
+    <div w-table>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th style="width:30%;">articleId</th>
+                    <th style="width:70%;">articleTitle</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="article in pagination.list">
+                <td><a href="#article/show/{{article._id}}" ng-bind="article._id"></a></td>
+                <td ng-bind="article.title"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
