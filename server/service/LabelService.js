@@ -23,9 +23,9 @@ function queryList(pagination) {
     }).then(function() {
         labelDao.getCount().then(function(result) {
             logger.debug("label count:{}", result);
-            callbackData.count = result;
+            callbackData.count = count;
             callbackData.page = page;
-            callbackData.rows = rows;
+            callbackData.rows = result;
             logger.debug("callback data:{}", callbackData);
             defer.resolve(callbackData);
         }, function(error) {

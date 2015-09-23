@@ -46,10 +46,10 @@ var query = function(conditions, fields, pagination) {
     if(fields) {
         query.select(fields);
     }
-    if(pagination.skip) {
+    if(pagination && pagination.skip) {
         query.skip(pagination.skip);
     }
-    if(pagination.limit) {
+    if(pagination && pagination.limit) {
         query.limit(pagination.limit)
     }
     query.exec(function(error, result) {
