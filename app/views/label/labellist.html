@@ -1,8 +1,32 @@
 <div>
-    <ul>
-        <li ng-repeat="label in pagination.list">
-            <span ng-bind="label._id"></span>
-            <span ng-bind="label.label_name"></span>
-        </li>
-    </ul>
+    <div w-table page="1" rows="57">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr><th>labelId</th><th>labelName</th></tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="label in pagination.list">
+                <td ng-bind="label._id"></td>
+                <td ng-bind="label.label_name"></td>
+            </tr>
+            </tbody>
+        </table>
+ <!--       <div>
+            <div class="btn-group" style="float: left;">
+                <button type="button" class="btn btn-default">first</button>
+                <button type="button" class="btn btn-default"><</button>
+                <button type="button" class="btn btn-default active">1</button>
+                <button type="button" class="btn btn-default">2</button>
+                <button type="button" class="btn btn-default">3</button>
+                <button type="button" class="btn btn-default">4</button>
+                <button type="button" class="btn btn-default">5</button>
+                <button type="button" class="btn btn-default">></button>
+                <button type="button" class="btn btn-default">last</button>
+            </div>
+            <div style="float: right;line-height: 34px;padding-right: 30px;">
+                共10页，当前第1页
+            </div>
+            <div style="clear: both"></div>
+        </div>-->
+    </div>
 </div>

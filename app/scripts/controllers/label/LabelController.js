@@ -7,14 +7,19 @@ define(['app'], function(app) {
             count: 15,//每页显示数
             list: []
         };
-        labelService.queryLabels($scope.pagination).then(function(data) {
-            if(data.status == 0) {
-                alert('后台错误');
-            }
-            angular.extend($scope.pagination, data.result);
-        }, function(error) {
 
-        });
+        $scope.queryTableData = function() {
+            labelService.queryLabels($scope.pagination).then(function(data) {
+                if(data.status == 0) {
+                    alert('后台错误');
+                }
+                angular.extend($scope.pagination, data.result);
+            }, function(error) {
+                alert(error);
+            });
+        };
+
+        $scope.queryTableData();
     };
 
     labelController.inject = ['$scope', 'labelService'];

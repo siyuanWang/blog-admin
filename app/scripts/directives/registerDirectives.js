@@ -158,4 +158,92 @@ define(['app'], function(app) {
             }
         };
     });
+
+    app.directive('wTable', function () {
+        return {
+            restrict: 'A',
+            scope: false,
+            link: function (scope, element, attrs) {
+                var needRequest = true;//need request remote data
+                var page = scope.pagination.page, rows = scope.pagination.rows, count =  scope.pagination.count;
+                var pageNum = (rows%count == 0)?(Math.floor(rows/count)):(Math.floor(rows/count) + 1);
+                //bootstrap pagination start
+                //pagination container
+                var $paginationContainer = angular.element("<div></div>");
+                //pagination buttons
+                var $btnGroup = angular.element("<div class='btn-group' style='float: left;'></div>");
+                var $btnGroupBefor = angular.element("<button class='btn btn-default' role='first'>first</button><button class='btn btn-default' role='previous'><</button>");
+                var $btnGroupAfter = angular.element("<button class='btn btn-default' role='next'>></button><button class='btn btn-default' role='last'>last</button>");
+                $btnGroup.append($btnGroupBefor);
+                for(var i = 1; i <= pageNum; i++) {
+                    var $pageBtn;
+                    //add 'active' class to current page button
+                    if(i === page) {
+                        $pageBtn = angular.element("<button class='btn btn-default active' role='number'>"+i+"</button>");
+                    } else {
+                        $pageBtn = angular.element("<button class='btn btn-default' role='number'>"+i+"</button>");
+                    }
+
+                    $btnGroup.append($pageBtn);
+                }
+                $btnGroup.append($btnGroupAfter);
+                //pagination information
+                var $info = angular.element("<div style='float: right;line-height: 34px;padding-right: 30px;'>共"+pageNum+"页，当前第"+page+"页</div>");
+                var $clear = angular.element("<div style='clear: both'></div>");
+                //combine the pagination dom
+                $paginationContainer.append($btnGroup).append($info).append($clear);
+                var $element = angular.element(element);
+                $element.append($paginationContainer);
+                //bootstrap pagination end
+                function removeBtnClass(btns) {
+                    btns.each(function() {
+                        arguments[1].classList.remove('active');
+                    })
+                }
+                //pagination events bind
+                var $btns = $btnGroup.children();
+                $btns.each(function() {
+                    var btn = arguments[1];
+                    btn.addEventListener("click", function(e) {
+                        var target = e.target;
+                        removeBtnClass($btns);
+                        var roleName = angular.element(e.target).attr("role");
+                        switch(roleName) {
+                            case "number":
+                                target.classList.add("active");
+                                scope.pagination.page = parseInt(target.innerText);
+                                needRequest = true;
+                                break;
+                            case "previous":
+                                if(scope.pagination.page > 1) {
+                                    scope.pagination.page--;
+                                    needRequest = true;
+                                } else {
+                                    needRequest = false;
+                                }
+                                break;
+                            case "next":
+                                if(scope.pagination.page < pageNum) {
+                                    scope.pagination.page++;
+                                    needRequest = true;
+                                } else {
+                                    needRequest = false;
+                                }
+                                break;
+                            case "first":
+                                scope.pagination.page = 1;
+                                break;
+                            case "last":
+                                scope.pagination.page = pageNum;
+                                break;
+                            default:
+                                throw new Error("pagination button role is wrong.");
+                        }
+                        if(needRequest)
+                            scope.queryTableData();
+                    });
+                });
+            }
+        };
+    });
 });
