@@ -22,6 +22,8 @@ define(['app'], function(app) {
                     .when('/article/show/:articleId',route.resolve('articleShowController','show','article', 'vm', false))
                     .when('/label', route.resolve('labelController','labellist','label', 'vm', false))
                     .when('/label/:labelId', route.resolve('labelArticleController','labelarticle','label', 'vm', false))
+                    .when('/classify', route.resolve('classifyController','classifylist','classify', 'vm', false))
+                    .when('/classify/add', route.resolve('classifyAddController','classifyadd','classify', 'vm', false))
                     .otherwise(route.resolve('articleController','articlelist','article', 'vm', false));
                 //textAngular定制化组件
                 $provide.decorator('taOptions', ['taRegisterTool', '$delegate','$compile', function(taRegisterTool, taOptions, $compile){

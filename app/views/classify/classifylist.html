@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <a href="#classify/add" class="btn btn-success">新增</a>
+    </div>
+    <hr/>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th style="width:30%;">_id</th>
+            <th style="width:70%;">name</th>
+            <th style="width:70%;">code</th>
+            <th style="width:70%;">parentId</th>
+            <th style="width:70%;">create_time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="classify in classifies">
+            <td><a href="#label/{{classify._id}}" ng-bind="classify._id"></a></td>
+            <td ng-bind="classify.name"></td>
+            <td ng-bind="classify.code"></td>
+            <td ng-bind="classify.parentId"></td>
+            <td ng-bind="classify.create_time"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

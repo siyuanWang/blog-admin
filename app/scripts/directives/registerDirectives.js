@@ -144,7 +144,7 @@ define(['app'], function(app) {
         };
     });
 
-    app.directive('cancelUpload', function ($compile) {
+    app.directive('cancelUpload', function () {
         return {
             restrict: 'A',
             scope: false,

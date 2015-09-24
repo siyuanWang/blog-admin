@@ -29,6 +29,7 @@ require(
         'scripts/services/commentService',
         'scripts/services/userService',
         'scripts/services/labelService',
+        'scripts/services/classifyService',
         'scripts/filters/appFilter',
         'scripts/config/appConfig'
     ],

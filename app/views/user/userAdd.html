@@ -13,11 +13,11 @@
     'has-success': userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)}">
             <div class="input-group">
                 <input type="text" class="form-control" id="username" name="username" ng-model="fields.username" placeholder="必填" required check-user-name ng-model-options="{debounce: 500}"/>
-    <span class="input-group-addon">
-        <span ng-show="userForm.username.$pristine" class="glyphicon glyphicon-user"></span>
-        <span ng-show="userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
-        <span ng-show="userForm.username.$invalid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('username')"></span>
-    </span>
+                <span class="input-group-addon">
+                    <span ng-show="userForm.username.$pristine" class="glyphicon glyphicon-user"></span>
+                    <span ng-show="userForm.username.$valid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-ok"></span>
+                    <span ng-show="userForm.username.$invalid && (userForm.username.$dirty || userForm.$submitted)" class="glyphicon glyphicon-remove" ng-click="clearInput('username')"></span>
+                </span>
             </div>
         </div>
         <div class="col-md-1 errorInfo">

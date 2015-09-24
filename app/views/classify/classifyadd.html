@@ -1,0 +1,30 @@
+<form name="classifyForm" novalidate ng-submit="submit()" class="form-horizontal">
+    <div class="form-group">
+        <label for="name" class="col-md-2 control-label">分类名称</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="name" name="name" ng-model="classify.name" placeholder="必填" required/>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="code" class="col-md-2 control-label">分类编号</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="code" name="code" ng-model="classify.code" placeholder="必填" required/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parentId" class="col-md-2 control-label">父ID</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="parentId" name="parentId" ng-model="classify.parentId"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-6">
+            <div class="pull-right">
+                <input type="submit" class="btn btn-success" value="Submit" ng-click="validateBeforSubmit(fields)"/>
+                <button class="btn btn-default" ng-click="reset(form)">Reset</button>
+            </div>
+        </div>
+    </div>
+</form>
+
